@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9531" systemVersion="15G31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9529"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="LFCategoryCollectionViewCell" customModule="dangtangLF" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="150" height="75"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="150" height="75"/>
+                <subviews>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="yw_1222" translatesAutoresizingMaskIntoConstraints="NO" id="HFD-te-oVR" userLabel="Collection Image View">
+                        <rect key="frame" x="0.0" y="0.0" width="150" height="75"/>
+                    </imageView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="R3I-I8-yJG" userLabel="Placeholder Button">
+                        <rect key="frame" x="60" y="25" width="31" height="26"/>
+                        <state key="normal" image="PlaceHolderImage_small_31x26_">
+                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </state>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            </view>
+            <constraints>
+                <constraint firstItem="R3I-I8-yJG" firstAttribute="centerY" secondItem="gTV-IL-0wX" secondAttribute="centerY" id="4jD-sD-bnw"/>
+                <constraint firstAttribute="trailing" secondItem="HFD-te-oVR" secondAttribute="trailing" id="EKK-Wy-74N"/>
+                <constraint firstAttribute="bottom" secondItem="HFD-te-oVR" secondAttribute="bottom" id="FuV-dY-8Mj"/>
+                <constraint firstItem="R3I-I8-yJG" firstAttribute="centerX" secondItem="gTV-IL-0wX" secondAttribute="centerX" id="J5O-j4-2Hd"/>
+                <constraint firstItem="HFD-te-oVR" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="XMq-rm-iJ7"/>
+                <constraint firstItem="HFD-te-oVR" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="eW8-9Z-GM4"/>
+            </constraints>
+            <size key="customSize" width="50" height="24"/>
+            <connections>
+                <outlet property="collectionImageView" destination="HFD-te-oVR" id="R3s-ZE-WJR"/>
+                <outlet property="placeholderButton" destination="R3I-I8-yJG" id="Unq-MG-WjB"/>
+            </connections>
+            <point key="canvasLocation" x="402" y="269"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="PlaceHolderImage_small_31x26_" width="31" height="26"/>
+        <image name="yw_1222" width="3" height="3"/>
+    </resources>
+</document>

@@ -1,0 +1,1 @@
+ const unsigned char Pods_dangtangLFVersionString[] __attribute__ ((used)) = "@(#)PROGRAM:Pods_dangtangLF  PROJECT:Pods-1" "\n"; const double Pods_dangtangLFVersionNumber __attribute__ ((used)) = (double)1.;

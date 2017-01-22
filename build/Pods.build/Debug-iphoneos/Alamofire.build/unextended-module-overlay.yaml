@@ -1,0 +1,13 @@
+{
+  'version': 0,
+  'case-sensitive': 'false',
+  'roots': [{
+    'type': 'directory',
+    'name': '/Users/jim/Documents/xcode/dangtangLF/build/Debug-iphoneos/Alamofire/Alamofire.framework/Modules'
+    'contents': [{
+      'type': 'file',
+      'name': 'module.modulemap',
+      'external-contents': '/Users/jim/Documents/xcode/dangtangLF/build/Pods.build/Debug-iphoneos/Alamofire.build/unextended-module.modulemap',
+    }]
+  }]
+}
