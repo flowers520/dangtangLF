@@ -11,22 +11,28 @@ import UIKit
 
 class LFSeeAllController: LFBaseViewController {
 
-    @IBOutlet weak var tableView: UITableView!
+    var tableView: UITableView!
     var collections = [LFCollection]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        tableView.registerClass(LFSeeAllTopicCell.classForCoder(), forCellReuseIdentifier: "seeAllCellID")
-        tableView.separatorStyle = .None
-        tableView.rowHeight = 160
         
         //分类界面 顶部 专题合集
         LFNetworkTool.shareNetworkTool.loadCategoryCollection(20) { (collections) -> () in
             self.collections = collections
             self.tableView.reloadData()
         }
+        
+        tableView = UITableView(frame: self.view.frame)
+        tableView.registerClass(LFSeeAllTopicCell.classForCoder(), forCellReuseIdentifier: "seeAllCellID")
+        tableView.dataSource = self
+        tableView.delegate = self
+        tableView.separatorStyle = .None
+        tableView.rowHeight = 160
+        view.addSubview(tableView)
+ 
     }
 
 }
@@ -35,10 +41,11 @@ extension LFSeeAllController: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return collections.count ?? 0
+
     }
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("seeAllCellID") as! LFSeeAllTopicCell
+        let cell = tableView.dequeueReusableCellWithIdentifier("seeAllCellID", forIndexPath: indexPath) as! LFSeeAllTopicCell
         cell.collection = collections[indexPath.row]
         cell.selectionStyle = .None
         return cell

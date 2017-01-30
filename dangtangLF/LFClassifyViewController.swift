@@ -14,7 +14,7 @@ class LFClassifyViewController: LFBaseViewController, LFCategoryBottomViewDelega
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Feed_SearchBtn_18x18_"), style: .Plain, target: self, action: Selector("categoryRightBBClick:"))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "Feed_SearchBtn_18x18_"), style: .Plain, target: self, action: Selector("categoryRightBBClick"))
         
         setupScrollView()
     }
@@ -40,7 +40,10 @@ class LFClassifyViewController: LFBaseViewController, LFCategoryBottomViewDelega
 
     }
     
-    
+    func categoryRightBBClick(){
+        let searchBarVC = LFSearchViewController()
+        navigationController?.pushViewController(searchBarVC, animated: true)
+    }
 
     /**
     *  懒加载创建 scrollView

@@ -25,14 +25,17 @@ class LFCategoryHeaderViewController: LFBaseViewController {
             self.collections = collections
             self.collectionView?.reloadData()
         }
+        
     }
 
     /**
     *  设置UI
     */
     private func setupUI(){
-        let headerView = NSBundle.mainBundle().loadNibNamed(String(LFTopHeaderView), owner: nil, options: nil).last as! LFTopHeaderView
+//        let headerView = NSBundle.mainBundle().loadNibNamed(String(LFTopHeaderView), owner: nil, options: nil).last as! LFTopHeaderView
+        let headerView = LFTopHeaderView()
         headerView.frame = CGRectMake(0,0,SCREENW,40)
+        headerView.backgroundColor = UIColor.whiteColor()
         headerView.delegate = self
         view.addSubview(headerView)
         
@@ -67,13 +70,13 @@ extension LFCategoryHeaderViewController:UICollectionViewDelegate,UICollectionVi
     }
     func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCellWithReuseIdentifier("categoryCollectionCellID", forIndexPath: indexPath) as! LFCategoryCollectionViewCell
-        cell.collection = collections[indexPath.row]
+        cell.collection = collections[indexPath.item]
         return cell
     }
     //MARK: - UICollectionViewDelegate
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
         let collectionDetailVC = LFCollectionDetailController()
-        let collection = collections[indexPath.row]
+        let collection = collections[indexPath.item]
         collectionDetailVC.title = collection.title
         collectionDetailVC.id = collection.id
         collectionDetailVC.type = "专题合集"

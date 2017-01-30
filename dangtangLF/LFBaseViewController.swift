@@ -16,7 +16,7 @@ class LFBaseViewController: UIViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = LFGlobalRedColor()
+        self.view.backgroundColor = LFGlobalColor()
         navigationController?.fd_prefersNavigationBarHidden = true
         SVProgressHUD.setDefaultMaskType(.Black)
         SVProgressHUD.setBackgroundColor(UIColor(red: 0, green: 0, blue: 0, alpha: 0.5))

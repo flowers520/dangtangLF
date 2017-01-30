@@ -10,7 +10,7 @@ import UIKit
 
 class LFPostDetailViewController: LFBaseViewController {
 
-    @IBOutlet weak var webView: UIWebView!
+    var webView: UIWebView!
     
     var post: LFCollectionPost?
     
@@ -18,12 +18,14 @@ class LFPostDetailViewController: LFBaseViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+        webView = UIWebView(frame: CGRectMake(0,0,600,600))
         webView.scalesPageToFit = true
         webView.dataDetectorTypes = .All
+        webView.delegate = self
         let url = NSURL(string: (post?.content_url)!)
         let request = NSURLRequest(URL: url!)
         webView.loadRequest(request)
-        view.addSubview(webView!)
+        self.view.addSubview(webView!)
         
     }
 
