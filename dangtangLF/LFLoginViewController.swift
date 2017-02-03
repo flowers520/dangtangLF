@@ -67,13 +67,13 @@ class LFLoginViewController: LFBaseViewController {
         if let buttonType = LFOtherLoginButtonType(rawValue: sender.tag){
             switch buttonType {
             case .weiboLogin:
-                SVProgressHUD.showWithStatus("微博登录....")
+                SVProgressHUD.showInfoWithStatus("微博登录....")
                 break
             case .wechatLogin:
-                SVProgressHUD.showWithStatus("微信登录....")
+                SVProgressHUD.showInfoWithStatus("微信登录....")
                 break
             case .QQLogin:
-                SVProgressHUD.showWithStatus("QQ登录....")
+                SVProgressHUD.showInfoWithStatus("QQ登录....")
                 break
             default:
                 break
@@ -82,38 +82,37 @@ class LFLoginViewController: LFBaseViewController {
     }
     
     //MARK: - 界面设置
-    func setupUI(){
-        self.view.frame = CGRectMake(0, 0, 600, 600)
+    private func setupUI(){
         
-        loginview.frame = CGRectMake(0, 100, 600, 86)
+        loginview = UIView(frame: CGRectMake(0, 100, SCREENW, 86))
         view.addSubview(loginview)
         //登录项
-        loginLineView.frame = CGRectMake(15, 42, 585, 1)
+        loginLineView = UIView(frame: CGRectMake(15, 42, (SCREENW-15-15), 1))
         loginLineView.backgroundColor = UIColor.grayColor()
         loginview.addSubview(loginLineView)
         
-        mobileLabel.frame = CGRectMake(15, 0, 51, 43)
+        mobileLabel = UILabel(frame: CGRectMake(15, 0, 60, 43))
         mobileLabel.text = "手机号:"
         mobileLabel.textColor = UIColor.grayColor()
-        mobileLabel.textAlignment = .Left
+        mobileLabel.textAlignment = .Right
         mobileLabel.font = UIFont.systemFontOfSize(17)
         loginview.addSubview(mobileLabel)
         
-        passwordLabel.frame = CGRectMake(15, 43, 34, 43)
-        passwordLabel.text = "密码:"
+        passwordLabel = UILabel(frame: CGRectMake(15, 43, 60, 43))
+        passwordLabel.text = "密   码:"
         passwordLabel.textColor = UIColor.grayColor()
         passwordLabel.font = UIFont.systemFontOfSize(17)
-        passwordLabel.textAlignment = .Left
+        passwordLabel.textAlignment = .Right
         loginview.addSubview(passwordLabel)
         
-        mobileField.frame = CGRectMake(76, 0, 524, 42)
+        mobileField = UITextField(frame: CGRectMake(15+60+10, 0, SCREENW-85, 42))
         mobileField.placeholder = "请输入手机号码"
         mobileField.textAlignment = .Left
         mobileField.contentHorizontalAlignment = .Center
         mobileField.font = UIFont.systemFontOfSize(14)
         loginview.addSubview(mobileField)
      
-        passwordField.frame = CGRectMake(76, 43, 524, 43)
+        passwordField = UITextField(frame: CGRectMake(15+60+10, 43, SCREENW-85, 43))
         passwordField.placeholder = "请输入密码"
         passwordField.textAlignment = .Left
         passwordField.contentHorizontalAlignment = .Center
@@ -121,8 +120,10 @@ class LFLoginViewController: LFBaseViewController {
         loginview.addSubview(passwordField)
         
         //登录按钮
-        loginButton.frame = CGRectMake(15, 216, 570, 36)
+        loginButton = UIButton(frame: CGRectMake(15, 216, SCREENW-15-15, 36))
         loginButton.setTitle("登录", forState: .Normal)
+        loginButton.layer.cornerRadius = kCornerRadius
+        loginButton.layer.masksToBounds = true
         loginButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         loginButton.backgroundColor = UIColor.redColor()
         loginButton.titleLabel?.textAlignment = .Center
@@ -130,7 +131,7 @@ class LFLoginViewController: LFBaseViewController {
         view.addSubview(loginButton)
         
         //忘记密码
-        forgetPwdBtn.frame = CGRectMake(529, 267, 56, 30)
+        forgetPwdBtn = UIButton(frame: CGRectMake(SCREENW-60-15, 267, 60, 30))
         forgetPwdBtn.setTitle("忘记密码", forState: .Normal)
         forgetPwdBtn.setTitleColor(UIColor.grayColor(), forState: .Normal)
         forgetPwdBtn.titleLabel?.textAlignment = .Center
@@ -139,37 +140,38 @@ class LFLoginViewController: LFBaseViewController {
         view.addSubview(forgetPwdBtn)
         
         //社交
-        socialView.frame = CGRectMake(0, 312, 600, 30)
+        socialView = UIView(frame: CGRectMake(0, 312, SCREENW, 30))
         view.addSubview(socialView)
         
-        socialLabel.frame = CGRectMake(244, 0, 112, 30)
+        socialLabel = UILabel(frame: CGRectMake((SCREENW-112)/2, 0, 112, 30))
         socialLabel.text = "使用社交账号登录"
+        socialLabel.textAlignment = .Center
         socialLabel.textColor = UIColor.grayColor()
         socialLabel.font = UIFont.systemFontOfSize(14)
         socialView.addSubview(socialLabel)
         
-        socialLeftView.frame = CGRectMake(15, 14, 219, 1)
+        socialLeftView = UIView(frame: CGRectMake(15, 14, (SCREENW-122)/2-15, 1))
         socialLeftView.backgroundColor = UIColor.grayColor()
         socialView.addSubview(socialLeftView)
         
-        socialRightView.frame = CGRectMake(366, 14, 219, 1)
+        socialRightView = UIView(frame: CGRectMake((SCREENW-122)/2+112+15, 14, (SCREENW-122)/2-15, 1))
         socialRightView.backgroundColor = UIColor.grayColor()
         socialView.addSubview(socialRightView)
         
         //微博
-        weiboButton.frame = CGRectMake(165, 362, 70, 70)
+        weiboButton = UIButton(frame: CGRectMake((SCREENW-30*2-70*3)/2, 362, 70, 70))
         weiboButton.setImage(UIImage(named: "Share_WeiboIcon_70x70_"), forState: .Normal)
         weiboButton.tag = 101
         weiboButton.addTarget(self, action: Selector("otherLoginButtonClick:"), forControlEvents: .TouchUpInside)
         view.addSubview(weiboButton)
         //微信
-        weChatButton.frame = CGRectMake(265, 362, 70, 70)
+        weChatButton = UIButton(frame: CGRectMake((SCREENW-30*2-70*3)/2+100, 362, 70, 70))
         weChatButton.tag = 102
         weChatButton.addTarget(self, action: Selector("otherLoginButtonClick:"), forControlEvents: .TouchUpInside)
         weChatButton.setImage(UIImage(named: "Share_WeChatSessionIcon_70x70_"), forState: .Normal)
         view.addSubview(weChatButton)
         //qq
-        qqButton.frame = CGRectMake(365, 362, 70, 70)
+        qqButton = UIButton(frame: CGRectMake((SCREENW-30*2-70*3)/2+200, 362, 70, 70))
         qqButton.tag = 103
         qqButton.addTarget(self, action: Selector("otherLoginButtonClick:"), forControlEvents: .TouchUpInside)
         qqButton.setImage(UIImage(named: "Share_QQIcon_70x70_"), forState: .Normal)

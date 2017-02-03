@@ -14,10 +14,10 @@ import SVProgressHUD
 class LFProductDetailTopView: UIView {
 
     var collectionView: UICollectionView!
-    var pageControl: UIPageControl!
-    var titleLabel: UILabel!
-    var priceLabel: UILabel!
-    var describeLabel: UILabel!
+    var pageControl = UIPageControl()
+    var titleLabel = UILabel()
+    var priceLabel = UILabel()
+    var describeLabel = UILabel()
 
     var imageURLs = [String]()
     
@@ -38,14 +38,37 @@ class LFProductDetailTopView: UIView {
 
     
     //界面设置
-    func setupUI(){
+    private func setupUI(){
+        collectionView = UICollectionView(frame: CGRectMake(0, 0, SCREENW, 375), collectionViewLayout: LFDetailLayout())
+        collectionView.registerClass(LFDetailCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: "detailCollectionViewID")
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.backgroundColor = UIColor.whiteColor()
+        addSubview(collectionView)
+
+        
+        pageControl.currentPageIndicatorTintColor = UIColor.whiteColor()
+        pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
+        addSubview(pageControl)
+        
+        titleLabel.numberOfLines = 0
+        titleLabel.textColor = UIColor.blackColor()
+        addSubview(titleLabel)
+        
+        priceLabel.numberOfLines = 0
+        priceLabel.textColor = LFGlobalColor()
+        priceLabel.font = UIFont.systemFontOfSize(16)
+        addSubview(priceLabel)
+        
+        describeLabel.numberOfLines = 0
+        describeLabel.textColor = LFColor(0, g: 0, b: 0, a: 0.6)
+        describeLabel.font = UIFont.systemFontOfSize(15)
+        addSubview(describeLabel)
+        
         pageControl.snp_makeConstraints { (make) -> Void in
             make.centerX.equalTo(self)
             make.centerY.equalTo(collectionView.snp_bottom).offset(-30)
         }
-        pageControl.currentPageIndicatorTintColor = UIColor.whiteColor()
-        pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
-        addSubview(pageControl)
         
         titleLabel.snp_makeConstraints { (make) -> Void in
             make.top.equalTo(collectionView.snp_bottom).offset(5)
@@ -53,9 +76,6 @@ class LFProductDetailTopView: UIView {
             make.right.equalTo(self.snp_right).offset(-5)
             make.height.equalTo(30)
         }
-        titleLabel.numberOfLines = 0
-        titleLabel.textColor = UIColor.blackColor()
-        addSubview(titleLabel)
         
         priceLabel.snp_makeConstraints { (make) -> Void in
             make.left.equalTo(titleLabel.snp_left)
@@ -63,10 +83,7 @@ class LFProductDetailTopView: UIView {
             make.top.equalTo(titleLabel.snp_bottom).offset(5)
             make.height.equalTo(25)
         }
-        priceLabel.numberOfLines = 0
-        priceLabel.textColor = LFGlobalColor()
-        priceLabel.font = UIFont.systemFontOfSize(16)
-        addSubview(priceLabel)
+
         
         describeLabel.snp_makeConstraints { (make) -> Void in
             make.left.equalTo(priceLabel.snp_left)
@@ -74,17 +91,8 @@ class LFProductDetailTopView: UIView {
             make.top.equalTo(priceLabel.snp_bottom).offset(5)
             make.bottom.equalTo(self.snp_bottom).offset(-5)
         }
-        describeLabel.numberOfLines = 0
-        describeLabel.textColor = LFColor(0, g: 0, b: 0, a: 0.6)
-        describeLabel.font = UIFont.systemFontOfSize(15)
-        addSubview(describeLabel)
+
         
-        collectionView = UICollectionView(frame: CGRectMake(0, 0, SCREENW, 375), collectionViewLayout: LFDetailLayout())
-        collectionView.registerClass(LFDetailCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: "detailCollectionViewID")
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        collectionView.backgroundColor = UIColor.whiteColor()
-        addSubview(collectionView)
     }
     
     required init?(coder aDecoder: NSCoder) {

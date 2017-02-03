@@ -12,9 +12,9 @@ import SnapKit
 class LFProductDetailBottomView: UIView {
 
     var comments = [LFComment]()
-    var webView: UIWebView!
-    var choiceButtonView: LFDetailChoiceButtonView!
-    var tableView: UITableView!
+    var webView = UIWebView()
+    var choiceButtonView =  LFDetailChoiceButtonView()
+    var tableView: UITableView! = UITableView()
     var product: LFProduct?{
         didSet{
             weak var weakSelf = self
@@ -39,17 +39,10 @@ class LFProductDetailBottomView: UIView {
     
     //MARK: - 界面设置
     func setupUI(){
-        choiceButtonView.snp_makeConstraints { (make) -> Void in
-            make.size.equalTo(CGSizeMake(SCREENW, 44))
-            make.top.equalTo(self)
-        }
+        
         choiceButtonView.delegate = self
         addSubview(choiceButtonView)
         
-        tableView.snp_makeConstraints { (make) -> Void in
-            make.top.equalTo(choiceButtonView.snp_bottom)
-            make.left.right.bottom.equalTo(self)
-        }
         tableView.hidden = true
         tableView.registerClass(LFCommentCell.classForCoder(), forCellReuseIdentifier: "commentCell")
         tableView.dataSource = self
@@ -57,14 +50,26 @@ class LFProductDetailBottomView: UIView {
         tableView.rowHeight = 64
         addSubview(tableView)
         
-        webView.snp_makeConstraints { (make) -> Void in
-            make.top.equalTo(choiceButtonView.snp_bottom)
-            make.left.right.bottom.equalTo(self)
-        }
         webView.scalesPageToFit = true
         webView.dataDetectorTypes = .All
         webView.delegate = self
         addSubview(webView)
+        
+        choiceButtonView.snp_makeConstraints { (make) -> Void in
+            make.size.equalTo(CGSizeMake(SCREENW, 44))
+            make.top.equalTo(self)
+        }
+
+        tableView.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(choiceButtonView.snp_bottom)
+            make.left.right.bottom.equalTo(self)
+        }
+
+        webView.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(choiceButtonView.snp_bottom)
+            make.left.right.bottom.equalTo(self)
+        }
+
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

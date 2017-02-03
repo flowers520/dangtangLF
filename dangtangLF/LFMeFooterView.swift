@@ -11,8 +11,8 @@ import Kingfisher
 
 class LFMeFooterView: UIView {
     
-    var meBlankButton: UIButton!
-    var messageLabel: UILabel!
+    var meBlankButton = UIButton()
+    var messageLabel = UILabel()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,10 +21,6 @@ class LFMeFooterView: UIView {
     
     //界面设置
     private func setupUI(){
-        meBlankButton.snp_makeConstraints { (make) in
-            make.size.equalTo(CGSizeMake(50, 50))
-            make.center.equalTo(self.center)
-        }
         meBlankButton.setTitleColor(LFColor(200, g: 200, b: 200, a: 1.0), forState: .Normal)
         meBlankButton.width = 100
         meBlankButton.titleLabel?.font = UIFont.systemFontOfSize(15)
@@ -33,16 +29,21 @@ class LFMeFooterView: UIView {
         meBlankButton.imageView?.sizeToFit()
         addSubview(meBlankButton)
         
-        messageLabel.snp_makeConstraints { (make) in
-            make.top.equalTo(meBlankButton.snp_bottom).offset(kMargin)
-            make.left.right.equalTo(self)
-        }
         messageLabel.text = "登录以享受功能"
         messageLabel.textAlignment = .Center
         messageLabel.font = UIFont.systemFontOfSize(15)
         messageLabel.textColor = LFColor(200, g: 200, b: 200, a: 1.0)
         addSubview(messageLabel)
-
+        
+        meBlankButton.snp_makeConstraints { (make) in
+            make.size.equalTo(CGSizeMake(50, 50))
+            make.center.equalTo(self.center)
+        }
+        
+        messageLabel.snp_makeConstraints { (make) in
+            make.top.equalTo(meBlankButton.snp_bottom).offset(kMargin)
+            make.left.right.equalTo(self)
+        }
     }
     
     func footerViewButtonClick() {

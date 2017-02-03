@@ -18,13 +18,13 @@ protocol LFDetailChoiceButtonViewDelegate: NSObjectProtocol{
 class LFDetailChoiceButtonView: UIView {
 
     
-    var lineView: UIView!
-    var hLineView: UIView!
-    var leadingConstraint: NSLayoutConstraint!
+    var lineView =  UIView()
+    var hLineView = UIView()
+    var leadingConstraint = NSLayoutConstraint()
     //图文介绍
-    var introduceButton: UIButton!
+    var introduceButton = UIButton()
     //评论
-    var commentButton: UIButton!
+    var commentButton = UIButton()
     
     weak var delegate: LFDetailChoiceButtonViewDelegate?
     
@@ -48,7 +48,7 @@ class LFDetailChoiceButtonView: UIView {
         delegate?.choichCommentButtonClick()
     }
     //界面设置
-    func setupUI(){
+    private func setupUI(){
         self.frame = CGRectMake(0, 0, 600, 44)
         //view
         lineView.frame = CGRectMake(0, 42, 300, 2)

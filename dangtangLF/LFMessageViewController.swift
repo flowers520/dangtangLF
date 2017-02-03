@@ -32,9 +32,9 @@ extension LFMessageViewController: UITableViewDelegate,UITableViewDataSource{
         return 20
     }
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("messageCellID", forIndexPath: indexPath)
-        cell.textLabel?.text = "消息>>>>" + String(indexPath.row)
-        return cell
+        let cell = tableView.dequeueReusableCellWithIdentifier("messageCellID")
+        cell!.textLabel?.text = "消息>>>>" + String(indexPath.row)
+        return cell!
         
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {

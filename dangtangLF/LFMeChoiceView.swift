@@ -10,11 +10,11 @@ import UIKit
 
 class LFMeChoiceView: UIView {
     //左边按钮
-    var leftButton: UIButton!
+    var leftButton = UIButton()
     //右边按钮
-    var rightButton: UIButton!
+    var rightButton = UIButton()
     //底部红条
-    var indicatorView: UIView!
+    var indicatorView = UIView()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,10 +38,7 @@ class LFMeChoiceView: UIView {
     
     //界面设置
     private func setupUI(){
-        leftButton.snp_makeConstraints { (make) in
-            make.left.top.bottom.equalTo(self)
-            make.width.equalTo(rightButton)
-        }
+
         leftButton.setTitle("喜欢的商品", forState: .Normal)
         leftButton.titleLabel?.font = UIFont.systemFontOfSize(16)
         leftButton.setTitleColor(LFColor(0, g: 0, b: 0, a: 0.7), forState: .Normal)
@@ -51,11 +48,7 @@ class LFMeChoiceView: UIView {
         leftButton.layer.borderWidth = KlineWidth
         leftButton.selected = true
         addSubview(leftButton)
-        
-        rightButton.snp_makeConstraints { (make) in
-            make.left.equalTo(leftButton.snp_right)
-            make.top.right.bottom.equalTo(self)
-        }
+
         rightButton.setTitle("喜欢的专题", forState: .Normal)
         rightButton.setTitleColor(LFColor(0, g: 0, b: 0, a: 0.7), forState: .Normal)
         rightButton.titleLabel?.font = UIFont.systemFontOfSize(16)
@@ -65,14 +58,24 @@ class LFMeChoiceView: UIView {
         rightButton.layer.borderWidth = KlineWidth
         addSubview(rightButton)
         
+        indicatorView.backgroundColor = LFGlobalRedColor()
+        addSubview(indicatorView)
+        
+        leftButton.snp_makeConstraints { (make) in
+            make.left.top.bottom.equalTo(self)
+            make.width.equalTo(rightButton)
+        }
+
+        rightButton.snp_makeConstraints { (make) in
+            make.left.equalTo(leftButton.snp_right)
+            make.top.right.bottom.equalTo(self)
+        }
+        
         indicatorView.snp_makeConstraints { (make) in
             make.height.equalTo(kIndicatorViewH)
             make.bottom.left.equalTo(self)
             make.right.equalTo(leftButton)
         }
-        indicatorView.backgroundColor = LFGlobalRedColor()
-        addSubview(indicatorView)
-
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

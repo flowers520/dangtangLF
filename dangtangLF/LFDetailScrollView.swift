@@ -11,9 +11,9 @@ import UIKit
 class LFDetailScrollView: UIScrollView {
 
     //顶部滚动视图
-    var topScrollView: LFProductDetailTopView!
+    var topScrollView = LFProductDetailTopView()
     //底部滚动视图
-    var bottomScrollView: LFProductDetailBottomView!
+    var bottomScrollView = LFProductDetailBottomView()
     
     var product: LFProduct?{
         didSet{
@@ -28,22 +28,26 @@ class LFDetailScrollView: UIScrollView {
     }
 
     //界面设置
-    func setupUI(){
+    private func setupUI(){
+        topScrollView.backgroundColor = UIColor.whiteColor()
+        addSubview(topScrollView)
+        
+        bottomScrollView.backgroundColor = UIColor.whiteColor()
+        addSubview(bottomScrollView)
+        
         topScrollView.snp_makeConstraints { (make) in
             make.left.equalTo(self)
             make.top.equalTo(self)
             make.size.equalTo(CGSizeMake(SCREENW, 520))
         }
-        topScrollView.backgroundColor = UIColor.whiteColor()
-        addSubview(topScrollView)
+
         //滚动视图
         bottomScrollView.snp_makeConstraints { (make) in
             make.left.equalTo(self)
             make.top.equalTo(topScrollView.snp_bottom).offset(kMargin)
             make.size.equalTo(CGSizeMake(SCREENW, SCREENH - 64 - 45))
         }
-        bottomScrollView.backgroundColor = UIColor.whiteColor()
-        addSubview(bottomScrollView)
+
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

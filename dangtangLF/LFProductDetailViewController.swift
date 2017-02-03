@@ -16,14 +16,13 @@ class LFProductDetailViewController: LFBaseViewController{
     var type = String()
     
     //scrollView
-    var scrollView: LFDetailScrollView!
+    var scrollView: LFDetailScrollView! = LFDetailScrollView()
     //底部栏
-    var toolBarView: LFProductDetailToolBar!
+    var toolBarView =  LFProductDetailToolBar()
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         //界面设置
         setupUI()
         
@@ -36,24 +35,27 @@ class LFProductDetailViewController: LFBaseViewController{
     
 
     //MARK: - 设置导航栏和底部栏
-    func setupUI(){
+    private func setupUI(){
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "GiftShare_icon_18x22_"), style: .Plain, target: self, action: Selector("shareBBItemClick"))
+        
+        scrollView.contentSize = CGSizeMake(SCREENW, SCREENH - 64 - 45 + kMargin + 520)
+        scrollView.showsHorizontalScrollIndicator = false
+        scrollView.delegate = self
+        view.addSubview(scrollView)
+
+        toolBarView.delegate = self
+        view.addSubview(toolBarView)
         
         scrollView.snp_makeConstraints { (make) -> Void in
             make.top.left.right.equalTo(view)
             make.bottom.equalTo(toolBarView.snp_top)
         }
-        scrollView.contentSize = CGSizeMake(SCREENW, SCREENH - 64 - 45 + kMargin + 520)
-        scrollView.showsHorizontalScrollIndicator = false
-        scrollView.delegate = self
-        view.addSubview(scrollView)
         
         toolBarView.snp_makeConstraints { (make) -> Void in
             make.left.bottom.right.equalTo(view)
             make.height.equalTo(45)
         }
-        toolBarView.delegate = self
-        view.addSubview(toolBarView)
+
     }
 
 }

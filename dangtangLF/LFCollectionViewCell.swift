@@ -60,28 +60,28 @@ class LFCollectionViewCell: UICollectionViewCell {
     //界面设置
     private func setupUI(){
         
-        productImageView.frame = CGRectMake(0, 0, 139, 164)
+        productImageView = UIImageView(frame: CGRectMake(0, 0, 139, 164))
         addSubview(productImageView)
         
-        placeholderBtn.frame = CGRectMake(54, 69, 31, 26)
+        placeholderBtn = UIButton(frame: CGRect(x: 54, y: 69, width: 31, height: 26))
         placeholderBtn.titleLabel?.font = UIFont.systemFontOfSize(18)
         placeholderBtn.setTitleColor(UIColor.clearColor(), forState: .Normal)
         placeholderBtn.setImage(UIImage(named: "PlaceHolderImage_small_31x26_"), forState: .Normal)
         addSubview(placeholderBtn)
         
-        titleLabel.frame = CGRectMake(5, 176, 134, 20)
+        titleLabel = UILabel(frame: CGRectMake(5, 176, 134, 20))
         titleLabel.text = "Label"
         titleLabel.textColor = UIColor.blackColor()
         titleLabel.font = UIFont.systemFontOfSize(16)
         addSubview(titleLabel)
         
-        priceLabel.frame = CGRectMake(5, 215, 38, 25)
+        priceLabel = UILabel(frame: CGRectMake(5, 215, 38, 25))
         priceLabel.text = "Label"
         priceLabel.textColor = UIColor.redColor()
         priceLabel.font = UIFont.systemFontOfSize(15)
         addSubview(priceLabel)
         
-        likeButton.frame = CGRectMake(112, 215, 22, 25)
+        likeButton = UIButton(frame: CGRectMake(112, 215, 22, 25))
         likeButton.titleLabel?.text = "0"
         likeButton.titleLabel?.textColor = UIColor.blackColor()
         likeButton.imageView?.image = UIImage(named: "Search_GiftBtn_Default_12x10_")

@@ -15,9 +15,9 @@ protocol LFProductDetailToolBarDelegate: NSObjectProtocol{
 class LFProductDetailToolBar: UIView {
 
     weak var delegate: LFProductDetailToolBarDelegate?
-    var toolView: UIView!
-    var likeButton: UIButton!
-    var TMButton: UIButton!
+    var toolView = UIView()
+    var likeButton = UIButton()
+    var TMButton = UIButton()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -25,7 +25,7 @@ class LFProductDetailToolBar: UIView {
         setupUI()
     }
     //设置界面
-    func setupUI(){
+    private func setupUI(){
         self.frame = CGRectMake(0, 0, 600, 45)
         
         toolView.frame = CGRectMake(0, 0, 600, 1)
