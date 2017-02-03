@@ -17,10 +17,10 @@ class LFHomeCell: UITableViewCell {
     
     weak var delegate:LFHomeCellDelegate?
     
-    @IBOutlet weak var bgImageView: UIImageView!
-    @IBOutlet weak var favoriteBtn: UIButton!
-    @IBOutlet weak var placehoderBtn: UIButton!
-    @IBOutlet weak var titleLabel: UILabel!
+    var bgImageView: UIImageView!
+    var favoriteBtn: UIButton!
+    var placehoderBtn: UIButton!
+    var titleLabel: UILabel!
     
     var homeItem: LFHomeItem? {
         didSet {
@@ -37,19 +37,52 @@ class LFHomeCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+    }
+
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        setupUI()
+    }
+    
+    //界面设置
+    func setupUI(){
+        bgImageView = UIImageView(frame: CGRectMake(8, 7, SCREENW-8-8, 144))
+        bgImageView.layer.cornerRadius = kCornerRadius
+        bgImageView.layer.masksToBounds = true
+        //格式化后，图层会被渲染成图片，并且缓存，再次使用时，不会重新渲染
+        bgImageView.layer.rasterizationScale = UIScreen.mainScreen().scale
+        bgImageView.layer.shouldRasterize = true
+        addSubview(bgImageView)
+        
+        placehoderBtn = UIButton(frame: CGRectMake((SCREENW-31)/2,(SCREENH-26)/2,31,26))
+        placehoderBtn.setImage(UIImage(named: "PlaceHolderImage_small_31x26_"), forState: .Normal)
+        addSubview(placehoderBtn)
+        
+        titleLabel = UILabel(frame: CGRectMake(13,125,SCREENW/3,21))
+        titleLabel.adjustsFontSizeToFitWidth = true
+        titleLabel.font = UIFont.systemFontOfSize(14)
+        titleLabel.textColor = UIColor.whiteColor()
+        addSubview(titleLabel)
+        
+        favoriteBtn = UIButton(frame: CGRectMake((SCREENW-10-30),18,30,25))
         favoriteBtn.layer.cornerRadius = favoriteBtn.bounds.height * 0.5
         favoriteBtn.layer.masksToBounds = true
         favoriteBtn.layer.rasterizationScale = UIScreen.mainScreen().scale
         favoriteBtn.layer.shouldRasterize = true
-        
-        bgImageView.layer.cornerRadius = kCornerRadius
-        bgImageView.layer.masksToBounds = true
-        bgImageView.layer.rasterizationScale = UIScreen.mainScreen().scale
-        bgImageView.layer.shouldRasterize = true
+        favoriteBtn.backgroundColor = UIColor.clearColor()
+        favoriteBtn.setTitle("0", forState: .Normal)
+        favoriteBtn.titleLabel?.textColor = UIColor.whiteColor()
+        favoriteBtn.setImage(UIImage(named: "Feed_FavoriteIcon_17x17_"), forState: .Normal)
+        favoriteBtn.addTarget(self, action: Selector("favoriteBtnClick:"), forControlEvents: .TouchUpInside)
+        addSubview(favoriteBtn)
         
     }
 
-    @IBAction func favoriteBtnClick(sender: UIButton){
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    func favoriteBtnClick(sender: UIButton){
         delegate?.homeCellDidClickedFavoriteButton(sender)
     }
 
