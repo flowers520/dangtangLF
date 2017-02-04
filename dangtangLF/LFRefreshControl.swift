@@ -15,6 +15,8 @@ class LFRefreshControl: UIRefreshControl {
     private var rotationArrowFlag = false
     //定义变量记录当前是否正在执行圈圈动画
     private var loadingViewAnimationFlag = false
+    //懒加载
+    private lazy var refreshView:LFRefreshView! = LFRefreshView()
     
     override init() {
         super.init()
@@ -75,8 +77,7 @@ class LFRefreshControl: UIRefreshControl {
         loadingViewAnimationFlag = false
     }
     
-    //MARK: - 懒加载
-    private var refreshView: LFRefreshView!
+
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

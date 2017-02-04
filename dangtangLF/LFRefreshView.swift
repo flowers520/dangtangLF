@@ -8,14 +8,13 @@
 
 import UIKit
 
-class LFRefreshView: UIRefreshControl {
+class LFRefreshView: UIView {
 
-    var tipView: UIView!
-    var arrowIcon: UIImageView!
-    var downRefreshingL: UILabel!
-    var isRefreshingL: UILabel!
-    var loadingView: UIImageView!
-    
+    var tipView = UIView()
+    var arrowIcon = UIImageView()
+    var downRefreshingL = UILabel()
+    var isRefreshingL = UILabel()
+    var loadingView = UIImageView()
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -23,9 +22,7 @@ class LFRefreshView: UIRefreshControl {
     }
 
     //设置界面
-    func setupUI(){
-        self.frame = CGRectMake(0, 0, 170, 60)
-        
+    private func setupUI(){
         loadingView.frame = CGRectMake(16, 14, 32, 32)
         loadingView.image = UIImage(named: "tableview_loading")
         addSubview(loadingView)
@@ -41,14 +38,14 @@ class LFRefreshView: UIRefreshControl {
         
         arrowIcon.frame = CGRectMake(10, 14, 32, 32)
         arrowIcon.image = UIImage(named: "tableview_pull_refresh")
-        addSubview(arrowIcon)
+        tipView.addSubview(arrowIcon)
         
         downRefreshingL.frame = CGRectMake(47, 20, 123, 20)
         downRefreshingL.text = "下拉刷新..."
         downRefreshingL.textColor = UIColor.blackColor()
         downRefreshingL.font = UIFont.systemFontOfSize(16)
         downRefreshingL.textAlignment = .Left
-        addSubview(downRefreshingL)
+        tipView.addSubview(downRefreshingL)
     }
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
@@ -58,6 +55,7 @@ class LFRefreshView: UIRefreshControl {
         var angle = M_PI
         angle += flag ? -0.01 : 0.01
         UIView.animateWithDuration(kAnimationDuration) { () -> Void in
+            //旋转
             self.arrowIcon.transform = CGAffineTransformRotate(self.arrowIcon.transform, CGFloat(angle))
         }
     }
@@ -79,5 +77,5 @@ class LFRefreshView: UIRefreshControl {
         loadingView.layer.removeAllAnimations()
     }
     
-
+    
 }

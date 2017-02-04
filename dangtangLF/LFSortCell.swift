@@ -10,8 +10,8 @@ import UIKit
 
 class LFSortCell: UITableViewCell {
 
-    var viewCell: UIView!
-    var titleLabel: UILabel!
+    var viewCell =  UIView()
+    var titleLabel = UILabel()
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -20,12 +20,11 @@ class LFSortCell: UITableViewCell {
 
     //界面设置
     func setupUI(){
-        self.frame = CGRectMake(0, 0, 320, 43)
         
-        viewCell.frame = CGRectMake(0, 42, 320, 1)
+        viewCell.frame = CGRectMake(0, 42, SCREENW, 1)
         addSubview(viewCell)
         
-        titleLabel.frame = CGRectMake(10, 0, 310, 43)
+        titleLabel.frame = CGRectMake(10, 0, SCREENW-10-10, 43)
         titleLabel.text = "Label"
         titleLabel.textColor = UIColor.whiteColor()
         addSubview(titleLabel)

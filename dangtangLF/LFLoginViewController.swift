@@ -50,6 +50,15 @@ class LFLoginViewController: LFBaseViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "取消", style: .Plain, target: self, action: Selector("cancelButtonClick"))
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "注册", style: .Plain, target: self, action: Selector("registerButtonClick"))
     }
+    //登录按钮
+    func loginButtonClick(sender: UIButton){
+        NSUserDefaults.standardUserDefaults().setBool(true, forKey: isLogin)
+        dismissViewControllerAnimated(true, completion: nil)
+    }
+    //忘记密码
+    func forgetPwdButtonClick(sender: UIButton){
+        SVProgressHUD.showInfoWithStatus("忘记密码！")
+    }
     
     //取消按钮点击
     func cancelButtonClick(){
@@ -128,6 +137,7 @@ class LFLoginViewController: LFBaseViewController {
         loginButton.backgroundColor = UIColor.redColor()
         loginButton.titleLabel?.textAlignment = .Center
         loginButton.titleLabel?.font = UIFont.systemFontOfSize(17)
+        loginButton.addTarget(self, action: Selector("loginButtonClick:"), forControlEvents: .TouchUpInside)
         view.addSubview(loginButton)
         
         //忘记密码
@@ -137,6 +147,7 @@ class LFLoginViewController: LFBaseViewController {
         forgetPwdBtn.titleLabel?.textAlignment = .Center
         forgetPwdBtn.backgroundColor = UIColor.clearColor()
         forgetPwdBtn.titleLabel?.font = UIFont.systemFontOfSize(14)
+        forgetPwdBtn.addTarget(self, action: Selector("forgetPwdButtonClick:"), forControlEvents: .TouchUpInside)
         view.addSubview(forgetPwdBtn)
         
         //社交

@@ -62,7 +62,7 @@ class LFNetworkTool: NSObject {
         let params = ["gender": 1,
                         "generation": 1]
         Alamofire
-            .request(.GET, url)
+            .request(.GET, url, parameters: params)
             .responseJSON { (response) -> Void in
                 guard response.result.isSuccess else{
                     SVProgressHUD.showErrorWithStatus("加载失败...")

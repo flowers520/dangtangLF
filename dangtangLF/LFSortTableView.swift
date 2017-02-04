@@ -59,23 +59,27 @@ class LFSortTableView: UIView {
     
     //界面设置
     func setupUI(){
-        bgView.snp_makeConstraints { (make) -> Void in
-            make.top.equalTo(self).offset(60)
-            make.right.equalTo(self)
-            make.size.equalTo(CGSizeMake(140, 150))
-        }
         addSubview(bgView)
+        bgView.addSubview(tableView)
+        
+        bgView.snp_makeConstraints { (make) -> Void in
+            make.top.equalTo(self).offset(90)
+            make.right.equalTo(self)
+            make.size.equalTo(CGSizeMake(140, 160))
+        }
+        
         
         tableView.snp_makeConstraints { (make) -> Void in
-            make.edges.equalTo(bgView).offset(UIEdgeInsetsMake(kMargin, kMargin, -kMargin, 0))
+            make.edges.equalTo(bgView).offset(UIEdgeInsetsMake(kMargin, kMargin, kMargin, kMargin))
         }
-        bgView.addSubview(tableView)
+        
     
     }
 
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
 }
 
 extension LFSortTableView: UITableViewDelegate,UITableViewDataSource{

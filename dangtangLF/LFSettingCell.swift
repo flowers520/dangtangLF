@@ -10,19 +10,19 @@ import UIKit
 
 class LFSettingCell: UITableViewCell {
 
-    var disclosureIndicator: UIImageView!
-    var rightLabel: UILabel!
-    var switchView: UISwitch!
-    var leftLabel: UILabel!
-    var lineView: UIView!
-    var iconImageView: UIImageView!
+    var disclosureIndicator = UIImageView()
+    var rightLabel = UILabel()
+    var switchView = UISwitch()
+    var leftLabel = UILabel()
+    var lineView = UIView()
+    var iconImageView = UIImageView()
     
     var setting: LFSetting? {
         didSet{
             iconImageView.image = UIImage(named: setting!.iconImage!)
             leftLabel.text = setting?.leftTitle
             rightLabel.text = setting?.rightTitle
-            disclosureIndicator.hidden = true
+            disclosureIndicator.hidden = setting!.isHiddenRightTip!
             switchView.hidden = setting!.isHiddenSwitch!
         }
     }
@@ -37,34 +37,34 @@ class LFSettingCell: UITableViewCell {
         setupUI()
     }
     //界面设置
-    func setupUI(){
-        self.frame = CGRectMake(0, 0, 320, 43)
+    private func setupUI(){
         
         iconImageView.frame = CGRectMake(10, 11, 21, 21)
         iconImageView.image = UIImage(named: "more_icon_score_21x21_")
         addSubview(iconImageView)
         
-        lineView.frame = CGRectMake(41, 43, 279, 1)
+        lineView.frame = CGRectMake(41, 43, SCREENW-41-10, 1)
         lineView.backgroundColor = UIColor.blackColor()
         addSubview(lineView)
         
-        leftLabel.frame = CGRectMake(41, 0, 42, 43)
+        leftLabel.frame = CGRectMake(41, 0, (SCREENW-41-10-20-8)/2, 43)
         leftLabel.text = "Label"
         leftLabel.textColor = UIColor.blackColor()
         leftLabel.font = UIFont.systemFontOfSize(17)
         addSubview(leftLabel)
         
-        switchView.frame = CGRectMake(243, 6, 51, 31)
+        switchView.frame = CGRectMake(SCREENW-51-10-20-8, 6, 51, 31)
         switchView.setOn(true, animated: true)
         addSubview(switchView)
         
-        rightLabel.frame = CGRectMake(250, 0, 42, 44)
+        rightLabel.frame = CGRectMake((SCREENW-41-10-20-8)/2+41, 0, (SCREENW-41-10-20-8)/2, 44)
         rightLabel.text = "Label"
+        rightLabel.textAlignment = NSTextAlignment.Right
         rightLabel.textColor = UIColor.blackColor()
         rightLabel.font = UIFont.systemFontOfSize(17)
         addSubview(rightLabel)
         
-        disclosureIndicator.frame = CGRectMake(302, 15, 8, 12)
+        disclosureIndicator.frame = CGRectMake(SCREENW-10-8-10, 16, 8, 12)
         disclosureIndicator.image = UIImage(named: "CellDisclosureIndicator_8x12_")
         addSubview(disclosureIndicator)
         

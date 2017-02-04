@@ -12,15 +12,15 @@ import SnapKit
 class LFActionSheet: UIView {
 
     //底部view
-    var bgView: UIView!
+    var bgView = UIView()
     //上部view
-    var topView: UIView!
+    var topView = UIView()
     //分享到标签
-    var shareLabel: UILabel!
+    var shareLabel = UILabel()
     //6个按钮
-    var shareButtonView: LFShareButtonView!
+    var shareButtonView = LFShareButtonView()
     //取消按钮
-    var cancelButton: UIButton!
+    var cancelButton = UIButton()
     
     class func show() {
         let actionSheet = LFActionSheet()

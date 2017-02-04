@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SVProgressHUD
 
 class LFSettingViewController: LFBaseViewController {
 
@@ -45,6 +46,7 @@ class LFSettingViewController: LFBaseViewController {
         tableView.separatorStyle = .None
         tableView.registerClass(LFSettingCell.classForCoder(), forCellReuseIdentifier: "messageCellID")
         tableView.tableFooterView = UIView()
+        view.addSubview(tableView)
     }
     
 }
@@ -73,6 +75,7 @@ extension LFSettingViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         tableView.deselectRowAtIndexPath(indexPath, animated: true)
+        SVProgressHUD.showInfoWithStatus("你点击的是第\(indexPath.row)行")
     }
 }
 
