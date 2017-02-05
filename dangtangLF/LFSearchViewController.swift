@@ -6,26 +6,30 @@ class LFSearchViewController: LFBaseViewController {
     //搜索结果列表
     var  results = [LFSearchResult]()
     weak var collectionView: UICollectionView?
+    var searchBar = UISearchBar()
     
-    
-    private lazy var popView: LFSortTableView = {
-        let popView = LFSortTableView()
-        popView.delegate = self
-        return popView
-    }()
-    
-    private lazy var searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
-        searchBar.placeholder = "搜索商品，专题"
-        return searchBar
-    }()
-    private lazy var searchRecordView: LFSearchRecordView = {
-        let searchRecordView = LFSearchRecordView()
-        searchRecordView.backgroundColor = LFGlobalColor()
-        searchRecordView.frame = CGRectMake(0,64,SCREENW,SCREENH-64)
-        return searchRecordView
-    }()
+    //搜索记录view
+    var searchRecordView = LFSearchRecordView()
   
+    
+//    override func viewDidAppear(animated: Bool) {
+//        super.viewDidAppear(animated)
+//        searchBar.becomeFirstResponder()
+//    }
+//    override func viewDidDisappear(animated: Bool) {
+//        super.viewDidDisappear(animated)
+//        searchBar.resignFirstResponder()
+//    }
+
+    
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        //设置界面
+        setupUI()
+
+    }
+
     //设置collectionView
     private func setupCollectionView(){
         let collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: UICollectionViewFlowLayout())
@@ -37,36 +41,29 @@ class LFSearchViewController: LFBaseViewController {
         view.addSubview(collectionView)
         self.collectionView = collectionView
     }
-
-    
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        searchBar.becomeFirstResponder()
-    }
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-        searchBar.resignFirstResponder()
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        //设置导航栏
-        setupNav()
-        
-        view.addSubview(searchRecordView)
-    }
-
-    //设置导航栏
-    func setupNav(){
+    //界面设置
+    private func setupUI(){
+        //导航栏
         navigationItem.titleView = searchBar
         searchBar.delegate = self
-        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIView())
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "取消", style: .Plain, target: self, action: Selector("navigationBackClick"))
+        searchBar.placeholder = "搜索商品，专题"
+//        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIView())
+//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "取消", style: .Plain, target: self, action: Selector("navigationBackClick"))
+        //返回
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "checkUserType_backward_9x15_"), style: .Plain, target: self, action: Selector("navigationBackClick"))
+        //排序
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_sort_21x21_"), style: .Plain, target: self, action: Selector("sortButtonClick"))
+
+
+        
+        searchRecordView.backgroundColor = LFGlobalColor()
+        searchRecordView.frame = CGRectMake(0, 64, SCREENW, SCREENH - 64)
+        view.addSubview(searchRecordView)
     }
     
     //搜索条件点击
     func sortButtonClick(){
-        popView.show()
+        LFSortTableView.show()
     }
     
     //返回按钮、取消按钮点击
@@ -87,9 +84,6 @@ extension LFSearchViewController: UISearchBarDelegate,UICollectionViewDelegate,U
     //搜索按钮点击
     func searchBarResultsListButtonClicked(searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "checkUserType_backward_9x15_"), style: .Plain, target: self, action: Selector("navigationBackClick"))
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_sort_21x21_"), style: .Plain, target: self, action: Selector("sortButtonClick"))
-        
         //根据搜索添加进行搜索
         let keyword = searchBar.text
         LFNetworkTool.shareNetworkTool.loadSearchResult(keyword!, sort: "") { [weak self] (results) -> () in

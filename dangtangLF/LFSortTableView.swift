@@ -14,6 +14,15 @@ protocol LFSortTableViewDelegate: NSObjectProtocol{
 }
 
 class LFSortTableView: UIView {
+        
+    class func show(){
+        let sortTableView = LFSortTableView()
+        sortTableView.frame = UIScreen.mainScreen().bounds
+        sortTableView.backgroundColor = UIColor.clearColor()
+        
+        let window = UIApplication.sharedApplication().keyWindow
+        window?.addSubview(sortTableView)
+    }
 
     weak var delegate: LFSortTableViewDelegate?
     let cells = ["默认排序","按热度排序","价格从低到高","价格从高到低"]
@@ -36,13 +45,7 @@ class LFSortTableView: UIView {
         tableView.registerClass(LFSortCell.classForCoder(), forCellReuseIdentifier: "sortTableViewCellID")
         return tableView
     }()
-    
-    func show(){
-        let window = UIApplication.sharedApplication().keyWindow
-        self.frame = UIScreen.mainScreen().bounds
-        self.backgroundColor = UIColor.clearColor()
-        window?.addSubview(self)
-    }
+
     
     //视图移除
     override func touchesEstimatedPropertiesUpdated(touches: Set<NSObject>) {
@@ -59,7 +62,7 @@ class LFSortTableView: UIView {
     }
     
     //界面设置
-    func setupUI(){
+    private func setupUI(){
         addSubview(bgView)
         bgView.addSubview(tableView)
         

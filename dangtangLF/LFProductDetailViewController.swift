@@ -17,7 +17,7 @@ class LFProductDetailViewController: LFBaseViewController{
     
     //scrollView(滚动视图 上下的视图)
     var scrollView = LFDetailScrollView()
-    //底部栏(图文介绍|评论)
+    //底部栏(喜欢|去天猫购买)
     var toolBarView =  LFProductDetailToolBar()
 
     

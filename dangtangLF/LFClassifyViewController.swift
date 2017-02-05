@@ -18,8 +18,13 @@ class LFClassifyViewController: LFBaseViewController, LFCategoryBottomViewDelega
         
         setupScrollView()
     }
+    
+    func categoryRightBBClick(){
+        let searchBarVC = LFSearchViewController()
+        navigationController?.pushViewController(searchBarVC, animated: true)
+    }
 
-
+    //界面设置
     private func setupScrollView(){
         view.addSubview(scrollView)
         //顶部控制器
@@ -40,10 +45,7 @@ class LFClassifyViewController: LFBaseViewController, LFCategoryBottomViewDelega
 
     }
     
-    func categoryRightBBClick(){
-        let searchBarVC = LFSearchViewController()
-        navigationController?.pushViewController(searchBarVC, animated: true)
-    }
+
 
     /**
     *  懒加载创建 scrollView

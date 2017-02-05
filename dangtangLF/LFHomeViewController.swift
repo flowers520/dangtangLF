@@ -6,15 +6,16 @@ class LFHomeViewController: LFBaseViewController {
     var channels = [LFChannel]()
     //标签
     weak var titlesView = UIView()
+    //顶部标签显示|隐藏
+    var titlesViewBool:Bool = true
     //底部红色指示器
     weak var indexcatorView = UIView()
     weak var contentView = UIScrollView()
     //当前选中的按钮
     weak var selectedButton = UIButton()
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
-
         //设置导航栏
         setupNav()
         //获取首页顶部选择数据
@@ -41,9 +42,23 @@ class LFHomeViewController: LFBaseViewController {
             CGAffineTransformMakeRotation（旋转）
             CGAffineTransformMakeScale（缩放）
             CGAffineTransformMakeTranslation（移动）
+            CGAffineTransformMakeTranslation(<#CGFloat tx#>, <#CGFloat ty#>):只能变化一次，因为这种方式的变化始终是以最原始的状态值进行变化的，所以只能变化一次
+            CGAffineTransformTranslate(CGAffineTransform t, <#CGFloat tx#>, <#CGFloat ty#>):能够多次变化，每次变化都是以上一次的状态（CGAffineTransform t）进行的变化，所以可以多次变化
             */
             button.imageView?.transform = CGAffineTransformRotate(button.imageView!.transform, CGFloat(M_PI))
         }
+        if titlesViewBool{
+            UIView.animateWithDuration(kAnimationDuration, animations: { () -> Void in
+                self.titlesView!.transform = CGAffineTransformTranslate(self.titlesView!.transform, 0, -self.titlesView!.height)
+            })
+            titlesViewBool = false
+        }else{
+            UIView.animateWithDuration(kAnimationDuration, animations: { () -> Void in
+                self.titlesView!.transform = CGAffineTransformTranslate(self.titlesView!.transform, 0, self.titlesView!.height)
+            })
+            titlesViewBool = false
+        }
+        
     }
     
     //标签上的按钮点击

@@ -128,7 +128,9 @@ class LFNetworkTool: NSObject {
                         "limit": 20,
                         "offset": 0,
                         "sort": sort]
-        Alamofire.request(.GET, url, parameters: params as? [String : AnyObject]).responseJSON { (response) -> Void in
+        Alamofire
+            .request(.GET, url, parameters: params as? [String : AnyObject])
+            .responseJSON { (response) -> Void in
             guard response.result.isSuccess else{
                 SVProgressHUD.showErrorWithStatus("加载失败...")
                 return
