@@ -12,9 +12,11 @@ import SnapKit
 class LFProductDetailBottomView: UIView {
 
     var comments = [LFComment]()
-    var webView = UIWebView()
     var choiceButtonView =  LFDetailChoiceButtonView()
-    var tableView: UITableView! = UITableView()
+    
+    var webView = UIWebView()
+    var tableView = UITableView()
+    
     var product: LFProduct?{
         didSet{
             weak var weakSelf = self
@@ -24,7 +26,7 @@ class LFProductDetailBottomView: UIView {
                 weakSelf?.webView.loadHTMLString(productDetail.detail_html!, baseURL: nil)
             }
            //获取评论数据
-            LFNetworkTool.shareNetworkTool.loadProductDetailComments((product?.id)!) { (comments) -> () in
+            LFNetworkTool.shareNetworkTool.loadProductDetailComments(product!.id!) { (comments) -> () in
                 weakSelf?.comments = comments
                 weakSelf?.tableView.reloadData()
             }
@@ -38,7 +40,7 @@ class LFProductDetailBottomView: UIView {
     }
     
     //MARK: - 界面设置
-    func setupUI(){
+    private func setupUI(){
         
         choiceButtonView.delegate = self
         addSubview(choiceButtonView)
@@ -83,7 +85,7 @@ extension LFProductDetailBottomView: LFDetailChoiceButtonViewDelegate, UIWebView
         tableView.hidden = true
         webView.hidden = false
     }
-    func choichCommentButtonClick() {
+    func choiceCommentButtonClick() {
         tableView.hidden = false
         webView.hidden = true
     }
@@ -93,7 +95,7 @@ extension LFProductDetailBottomView: LFDetailChoiceButtonViewDelegate, UIWebView
         UIApplication.sharedApplication().networkActivityIndicatorVisible = true
     }
     func webViewDidFinishLoad(webView: UIWebView) {
-        UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+        UIApplication.sharedApplication().networkActivityIndicatorVisible = false
     }
     
     //MARK: - UITableViewDataSource

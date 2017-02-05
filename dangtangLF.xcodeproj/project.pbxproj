@@ -267,9 +267,9 @@
 				38915CAF1E2A64A4007D59B9 /* LFHomeCell.swift */,
 				382ABAEB1E3F656300767919 /* LFRefreshControl.swift */,
 				382ABAED1E3F679E00767919 /* LFRefreshView.swift */,
-				382ABAEF1E40244700767919 /* LFSearchRecordView.swift */,
-				382ABAF11E40247500767919 /* LFSortCell.swift */,
 				382ABAF31E403F6C00767919 /* LFSortTableView.swift */,
+				382ABAF11E40247500767919 /* LFSortCell.swift */,
+				382ABAEF1E40244700767919 /* LFSearchRecordView.swift */,
 			);
 			name = V;
 			sourceTree = "<group>";
@@ -278,9 +278,9 @@
 			isa = PBXGroup;
 			children = (
 				38915CA41E291DD0007D59B9 /* LFHomeViewController.swift */,
-				382ABAF51E40490B00767919 /* LFDetailViewController.swift */,
 				382ABAE71E3F230B00767919 /* LFSearchViewController.swift */,
 				382ABAF71E40494500767919 /* LFTopicViewController.swift */,
+				382ABAF51E40490B00767919 /* LFDetailViewController.swift */,
 			);
 			name = C;
 			sourceTree = "<group>";
@@ -312,8 +312,8 @@
 		38F0E6A41E2CF2DD00AAA22C /* C */ = {
 			isa = PBXGroup;
 			children = (
-				38ADBD1F1E2FAE8C00D1B63A /* LFCategoryHeaderViewController.swift */,
 				38915CA21E291DC0007D59B9 /* LFClassifyViewController.swift */,
+				38ADBD1F1E2FAE8C00D1B63A /* LFCategoryHeaderViewController.swift */,
 				38ADBD1B1E2FA40F00D1B63A /* LFSeeAllController.swift */,
 				38ADBD131E2F7F5200D1B63A /* LFCollectionDetailController.swift */,
 				38ADBD171E2F9FE300D1B63A /* LFPostDetailViewController.swift */,

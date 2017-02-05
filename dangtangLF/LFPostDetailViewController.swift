@@ -18,7 +18,7 @@ class LFPostDetailViewController: LFBaseViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        webView = UIWebView(frame: CGRectMake(0,0,600,600))
+        webView = UIWebView(frame: CGRectMake(0,0,SCREENW,SCREENH))
         webView.scalesPageToFit = true
         webView.dataDetectorTypes = .All
         webView.delegate = self

@@ -10,9 +10,9 @@ import UIKit
 
 class LFDetailScrollView: UIScrollView {
 
-    //顶部滚动视图
+    //上部滚动视图（产品简介）
     var topScrollView = LFProductDetailTopView()
-    //底部滚动视图
+    //下部滚动视图（图文|评论）
     var bottomScrollView = LFProductDetailBottomView()
     
     var product: LFProduct?{
@@ -29,9 +29,10 @@ class LFDetailScrollView: UIScrollView {
 
     //界面设置
     private func setupUI(){
+        //上部滚动视图（产品简介)
         topScrollView.backgroundColor = UIColor.whiteColor()
         addSubview(topScrollView)
-        
+        //下部滚动视图（图文|评论）
         bottomScrollView.backgroundColor = UIColor.whiteColor()
         addSubview(bottomScrollView)
         
@@ -41,7 +42,6 @@ class LFDetailScrollView: UIScrollView {
             make.size.equalTo(CGSizeMake(SCREENW, 520))
         }
 
-        //滚动视图
         bottomScrollView.snp_makeConstraints { (make) in
             make.left.equalTo(self)
             make.top.equalTo(topScrollView.snp_bottom).offset(kMargin)

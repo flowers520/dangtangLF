@@ -26,7 +26,7 @@ class LFProductDetailTopView: UIView {
             imageURLs = product!.image_urls!
             collectionView.reloadData()
             pageControl.numberOfPages = imageURLs.count
-            titleLabel.text = product?.name
+            titleLabel.text = product!.name
             priceLabel.text = "￥\(product!.price!)"
             describeLabel.text = product!.describe
         }
@@ -46,20 +46,22 @@ class LFProductDetailTopView: UIView {
         collectionView.backgroundColor = UIColor.whiteColor()
         addSubview(collectionView)
 
-        
+        //pageControll
         pageControl.currentPageIndicatorTintColor = UIColor.whiteColor()
         pageControl.pageIndicatorTintColor = UIColor.lightGrayColor()
         addSubview(pageControl)
-        
+        //标题
+        titleLabel.lineBreakMode = .ByWordWrapping
         titleLabel.numberOfLines = 0
         titleLabel.textColor = UIColor.blackColor()
         addSubview(titleLabel)
-        
+        //价格
         priceLabel.numberOfLines = 0
-        priceLabel.textColor = LFGlobalColor()
+        priceLabel.textColor = LFGlobalRedColor()
         priceLabel.font = UIFont.systemFontOfSize(16)
         addSubview(priceLabel)
-        
+        //详细描述
+        describeLabel.lineBreakMode = .ByWordWrapping
         describeLabel.numberOfLines = 0
         describeLabel.textColor = LFColor(0, g: 0, b: 0, a: 0.6)
         describeLabel.font = UIFont.systemFontOfSize(15)
@@ -84,7 +86,6 @@ class LFProductDetailTopView: UIView {
             make.height.equalTo(25)
         }
 
-        
         describeLabel.snp_makeConstraints { (make) -> Void in
             make.left.equalTo(priceLabel.snp_left)
             make.right.equalTo(priceLabel.snp_right)

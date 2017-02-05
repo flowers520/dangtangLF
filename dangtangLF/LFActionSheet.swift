@@ -24,7 +24,6 @@ class LFActionSheet: UIView {
     
     class func show() {
         let actionSheet = LFActionSheet()
-        
         let window = UIApplication.sharedApplication().keyWindow
         window?.addSubview(actionSheet)
     }
@@ -40,28 +39,20 @@ class LFActionSheet: UIView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+    //界面设置
     private func setupUI(){
         self.frame = UIScreen.mainScreen().bounds
         self.backgroundColor = LFColor(0, g: 0, b: 0, a: 0.6)
-        
+
+        //底部背景view
         bgView.frame = CGRectMake(0, SCREENH, SCREENW, 280)
         addSubview(bgView)
-        
-        cancelButton.setTitle("取消", forState: .Normal)
-        cancelButton.titleLabel?.font = UIFont.systemFontOfSize(18)
-        cancelButton.setTitleColor(LFColor(37, g: 142, b: 240, a: 1.0), forState: .Normal)
-        cancelButton.backgroundColor = UIColor.whiteColor()
-        cancelButton.addTarget(self, action: Selector("cancelButtonClick"), forControlEvents: .TouchUpInside)
-        cancelButton.layer.cornerRadius = kCornerRadius
-        cancelButton.layer.masksToBounds = true
-        topView.addSubview(cancelButton)
-
+        //上部分享选择view
         topView.backgroundColor = UIColor.whiteColor()
         topView.layer.cornerRadius = kCornerRadius
         topView.layer.masksToBounds = true
         bgView.addSubview(topView)
-
+        
         shareLabel.text = "分享到"
         shareLabel.textColor = LFColor(0, g: 0, b: 0, a: 0.7)
         shareLabel.textAlignment = .Center
@@ -69,6 +60,15 @@ class LFActionSheet: UIView {
 
         shareButtonView.frame = CGRectMake(0, 30, SCREENW-20, kTopViewH-30)
         topView.addSubview(shareButtonView)
+
+        cancelButton.setTitle("取消", forState: .Normal)
+        cancelButton.titleLabel?.font = UIFont.systemFontOfSize(18)
+        cancelButton.setTitleColor(LFColor(37, g: 142, b: 240, a: 1.0), forState: .Normal)
+        cancelButton.backgroundColor = UIColor.whiteColor()
+        cancelButton.addTarget(self, action: Selector("cancelButtonClick"), forControlEvents: .TouchUpInside)
+        cancelButton.layer.cornerRadius = kCornerRadius
+        cancelButton.layer.masksToBounds = true
+        bgView.addSubview(cancelButton)
 
         
         topView.snp_makeConstraints { (make) -> Void in
@@ -107,6 +107,7 @@ class LFActionSheet: UIView {
                self.removeFromSuperview()
         }
     }
+    
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
         UIView.animateWithDuration(kAnimationDuration, animations: { () -> Void in
             self.bgView.frame.origin.y = SCREENH

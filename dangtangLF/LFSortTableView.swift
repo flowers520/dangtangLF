@@ -44,6 +44,7 @@ class LFSortTableView: UIView {
         window?.addSubview(self)
     }
     
+    //视图移除
     override func touchesEstimatedPropertiesUpdated(touches: Set<NSObject>) {
         self.removeFromSuperview()
     }
@@ -63,14 +64,14 @@ class LFSortTableView: UIView {
         bgView.addSubview(tableView)
         
         bgView.snp_makeConstraints { (make) -> Void in
-            make.top.equalTo(self).offset(90)
+            make.top.equalTo(self).offset(60)
             make.right.equalTo(self)
             make.size.equalTo(CGSizeMake(140, 160))
         }
         
         
         tableView.snp_makeConstraints { (make) -> Void in
-            make.edges.equalTo(bgView).offset(UIEdgeInsetsMake(kMargin, kMargin, kMargin, kMargin))
+            make.edges.equalTo(bgView).offset(UIEdgeInsetsMake(kMargin, kMargin, -kMargin, 0))
         }
         
     

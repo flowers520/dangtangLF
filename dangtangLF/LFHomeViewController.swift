@@ -1,7 +1,7 @@
 
 import UIKit
 
-class LFHomeViewController: UIViewController {
+class LFHomeViewController: LFBaseViewController {
 
     var channels = [LFChannel]()
     //标签
@@ -11,9 +11,6 @@ class LFHomeViewController: UIViewController {
     weak var contentView = UIScrollView()
     //当前选中的按钮
     weak var selectedButton = UIButton()
-    //排序按钮设置
-    var sortTableView = LFSortTableView()
-    var isArrowButton: Bool = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,7 +34,7 @@ class LFHomeViewController: UIViewController {
     }
 
     
-    //箭头按钮点击
+    //选择按钮点击
     func arrowButtonClick(button: UIButton){
         UIView.animateWithDuration(kAnimationDuration) { () -> Void in
             /**
@@ -46,14 +43,6 @@ class LFHomeViewController: UIViewController {
             CGAffineTransformMakeTranslation（移动）
             */
             button.imageView?.transform = CGAffineTransformRotate(button.imageView!.transform, CGFloat(M_PI))
-        }
-        //判断是否弹出排序
-        if !isArrowButton {
-            sortTableView.show()
-            isArrowButton = true
-        }else{
-            sortTableView.dismiss()
-            isArrowButton = false
         }
     }
     
@@ -142,6 +131,7 @@ class LFHomeViewController: UIViewController {
         
         let contentView = UIScrollView()
         contentView.frame = view.bounds
+        contentView.backgroundColor = view.backgroundColor
         contentView.delegate = self
         contentView.contentSize = CGSizeMake((contentView.width) * CGFloat(childViewControllers.count), 0)
         contentView.pagingEnabled = true

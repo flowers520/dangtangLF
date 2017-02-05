@@ -1,10 +1,4 @@
-//
-//  LFSearchViewController.swift
-//  dangtangLF
-//
-//  Created by jim on 17/1/30.
-//  Copyright © 2017年 jim. All rights reserved.
-//
+
 
 import UIKit
 
@@ -31,6 +25,19 @@ class LFSearchViewController: LFBaseViewController {
         searchRecordView.frame = CGRectMake(0,64,SCREENW,SCREENH-64)
         return searchRecordView
     }()
+  
+    //设置collectionView
+    private func setupCollectionView(){
+        let collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: UICollectionViewFlowLayout())
+        collectionView.delegate = self
+        collectionView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
+        collectionView.backgroundColor = view.backgroundColor
+        collectionView.dataSource = self
+        collectionView.registerClass(LFCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: "searchCollectionCellID")
+        view.addSubview(collectionView)
+        self.collectionView = collectionView
+    }
+
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
@@ -56,17 +63,6 @@ class LFSearchViewController: LFBaseViewController {
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIView())
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "取消", style: .Plain, target: self, action: Selector("navigationBackClick"))
     }
-    //设置collectionView
-    private func setupCollectionView(){
-        let collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: UICollectionViewFlowLayout())
-        collectionView.delegate = self
-        collectionView.contentInset = UIEdgeInsetsMake(64, 0, 0, 0)
-        collectionView.backgroundColor = view.backgroundColor
-        collectionView.dataSource = self
-        collectionView.registerClass(LFCollectionViewCell.classForCoder(), forCellWithReuseIdentifier: "searchCollectionCellID")
-        view.addSubview(collectionView)
-        self.collectionView = collectionView
-    }
     
     //搜索条件点击
     func sortButtonClick(){
@@ -76,11 +72,6 @@ class LFSearchViewController: LFBaseViewController {
     //返回按钮、取消按钮点击
     func navigationBackClick(){
         navigationController?.popViewControllerAnimated(true)
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
     }
     
 

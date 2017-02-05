@@ -12,7 +12,7 @@ protocol LFDetailChoiceButtonViewDelegate: NSObjectProtocol{
     //图文介绍按钮点击
     func choiceIntroduceButtonClick()
     //评论按钮点击
-    func choichCommentButtonClick()
+    func choiceCommentButtonClick()
 }
 
 class LFDetailChoiceButtonView: UIView {
@@ -34,7 +34,7 @@ class LFDetailChoiceButtonView: UIView {
     }
 
     //图文介绍
-    func introduceButton(sender: UIButton){
+    func introduceButtonClick(sender: UIButton){
         UIView.animateWithDuration(kAnimationDuration) { () -> Void in
             self.lineView.frame.origin.x = 0
         }
@@ -45,30 +45,29 @@ class LFDetailChoiceButtonView: UIView {
         UIView.animateWithDuration(kAnimationDuration) { () -> Void in
             self.lineView.frame.origin.x = SCREENW * 0.5
         }
-        delegate?.choichCommentButtonClick()
+        delegate?.choiceCommentButtonClick()
     }
     //界面设置
     private func setupUI(){
-        self.frame = CGRectMake(0, 0, 600, 44)
         //view
-        lineView.frame = CGRectMake(0, 42, 300, 2)
+        lineView.frame = CGRectMake(0, 42, SCREENW/2, 2)
         lineView.backgroundColor = UIColor.redColor()
         addSubview(lineView)
-        hLineView.frame = CGRectMake(300, 0, 1, 42)
+        hLineView.frame = CGRectMake(SCREENW/2, 0, 1, 42)
         hLineView.backgroundColor = UIColor.grayColor()
         addSubview(hLineView)
         //button
-        introduceButton.frame = CGRectMake(0, 0, 300, 44)
+        introduceButton.frame = CGRectMake(0, 0, SCREENW/2, 44)
         introduceButton.setTitle("图文介绍", forState: .Normal)
         introduceButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
         introduceButton.titleLabel?.font = UIFont.systemFontOfSize(15)
-        introduceButton.addTarget(self, action: Selector("graphicButton"), forControlEvents: .TouchUpInside)
+        introduceButton.addTarget(self, action: Selector("introduceButtonClick:"), forControlEvents: .TouchUpInside)
         addSubview(introduceButton)
-        commentButton.frame = CGRectMake(300, 0, 300, 44)
+        commentButton.frame = CGRectMake(SCREENW/2, 0, SCREENW/2, 44)
         commentButton.setTitle("评论", forState: .Normal)
         commentButton.setTitleColor(UIColor.blackColor(), forState: .Normal)
         commentButton.titleLabel?.font = UIFont.systemFontOfSize(15)
-        commentButton.addTarget(self, action: Selector("commentButtonClick"), forControlEvents: .TouchUpInside)
+        commentButton.addTarget(self, action: Selector("commentButtonClick:"), forControlEvents: .TouchUpInside)
         addSubview(commentButton)
     }
     

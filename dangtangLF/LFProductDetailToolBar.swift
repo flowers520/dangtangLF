@@ -34,16 +34,23 @@ class LFProductDetailToolBar: UIView {
         likeButton.frame = CGRectMake(15, 5, 100, 35)
         likeButton.layer.borderColor = LFGlobalRedColor().CGColor
         likeButton.layer.borderWidth = KlineWidth
+        likeButton.layer.cornerRadius = kCornerRadius
+        likeButton.layer.masksToBounds = true
         likeButton.setTitle("喜欢", forState: .Normal)
+        likeButton.setTitleColor(UIColor.redColor(), forState: .Normal)
         likeButton.titleLabel?.font = UIFont.systemFontOfSize(15)
         likeButton.setImage(UIImage(named: "content-details_like_16x16_"), forState: .Normal)
         likeButton.setImage(UIImage(named: "content-details_like_selected_16x16_"), forState: .Selected)
+        likeButton.addTarget(self, action: Selector("likeButtonClick:"), forControlEvents: .TouchUpInside)
         addSubview(likeButton)
         
-        TMButton.frame = CGRectMake(133, 5, 452, 35)
+        TMButton.frame = CGRectMake(133, 5, SCREENW-133-15, 35)
         TMButton.setTitle("去天猫购买", forState: .Normal)
+        TMButton.layer.cornerRadius = kCornerRadius
+        TMButton.layer.masksToBounds = true
         TMButton.setTitleColor(UIColor.whiteColor(), forState: .Normal)
         TMButton.backgroundColor = UIColor.redColor()
+        TMButton.addTarget(self, action: Selector("goTMALLButtonClick"), forControlEvents: .TouchUpInside)
         addSubview(TMButton)
         
     }
@@ -55,7 +62,9 @@ class LFProductDetailToolBar: UIView {
             sender.selected = !sender.selected
         }else{
             let loginVC = LFLoginViewController()
-            loginVC
+            loginVC.title = "登录"
+            let nav = LFNavigationController(rootViewController: loginVC)
+            UIApplication.sharedApplication().keyWindow?.rootViewController?.presentViewController(nav, animated: true, completion: nil)
         }
     }
     func goTMALLButtonClick(){

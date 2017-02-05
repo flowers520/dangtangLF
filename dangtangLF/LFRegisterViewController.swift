@@ -60,6 +60,6 @@ class LFRegisterViewController: LFBaseViewController {
     //获取验证短信
     func vertifyButtonClick(){
         //先判断手机号码是否合法
-        SVProgressHUD.showInfoWithStatus("手机号是:\(mobileField.text)")
+        SVProgressHUD.showInfoWithStatus("手机号是:\(String(mobileField.text))")
     }
 }

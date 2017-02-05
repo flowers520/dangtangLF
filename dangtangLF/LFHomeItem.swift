@@ -13,7 +13,7 @@ class LFHomeItem: NSObject {
     var cover_image_url:String?
     var created_at:Int?
     var id: Int?
-    var liked_count:Int?
+    var likes_count:Int?
     var share_msg:String?
     var published_at:Int?
     var short_title:String?
@@ -30,7 +30,7 @@ class LFHomeItem: NSObject {
         cover_image_url = dict["cover_image_url"] as? String
         created_at = dict["created_at"] as? Int
         id = dict["id"] as? Int
-        liked_count = dict["liked_count"] as? Int
+        likes_count = dict["likes_count"] as? Int
         share_msg = dict["share_msg"] as? String
         published_at = dict["published_at"] as? Int
         short_title = dict["short_title"] as? String

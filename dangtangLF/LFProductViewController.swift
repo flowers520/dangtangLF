@@ -8,14 +8,14 @@
 
 import UIKit
 
-class LFProductViewController: UIViewController {
+class LFProductViewController: LFBaseViewController {
 
     var products = [LFProduct]()
     weak var collectionView: UICollectionView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //设置collectionView
+        //设置collectionView)
         setupCollectionView()
         
         LFNetworkTool.shareNetworkTool.loadProductData { [weak self](products) -> () in
@@ -35,12 +35,6 @@ class LFProductViewController: UIViewController {
         self.collectionView = collectionView
     }
     
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
-    }
-    
-
 }
 extension LFProductViewController: UICollectionViewDelegate, UICollectionViewDataSource,UICollectionViewDelegateFlowLayout, LFCollectionViewCellDelegate{
     //MARK: - UICollectionViewDataSource

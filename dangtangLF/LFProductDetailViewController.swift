@@ -15,9 +15,9 @@ class LFProductDetailViewController: LFBaseViewController{
     var result: LFSearchResult?
     var type = String()
     
-    //scrollView
-    var scrollView: LFDetailScrollView! = LFDetailScrollView()
-    //底部栏
+    //scrollView(滚动视图 上下的视图)
+    var scrollView = LFDetailScrollView()
+    //底部栏(图文介绍|评论)
     var toolBarView =  LFProductDetailToolBar()
 
     
@@ -36,15 +36,20 @@ class LFProductDetailViewController: LFBaseViewController{
 
     //MARK: - 设置导航栏和底部栏
     private func setupUI(){
+        //分享按钮
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "GiftShare_icon_18x22_"), style: .Plain, target: self, action: Selector("shareBBItemClick"))
         
+        //scrollView(滚动视图 上下的视图)
         scrollView.contentSize = CGSizeMake(SCREENW, SCREENH - 64 - 45 + kMargin + 520)
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.delegate = self
+        //scrollView传数据到当前行
+        scrollView.product = product
         view.addSubview(scrollView)
-
+        //底部栏
         toolBarView.delegate = self
         view.addSubview(toolBarView)
+        
         
         scrollView.snp_makeConstraints { (make) -> Void in
             make.top.left.right.equalTo(view)
@@ -55,7 +60,6 @@ class LFProductDetailViewController: LFBaseViewController{
             make.left.bottom.right.equalTo(view)
             make.height.equalTo(45)
         }
-
     }
 
 }

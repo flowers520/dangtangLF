@@ -10,11 +10,11 @@ import UIKit
 
 class LFCommentCell: UITableViewCell {
 
-    var avatarImageView: UIImageView!
-    var lineView: UIView!
-    var nicknameLabel: UILabel!
-    var timeLabel: UILabel!
-    var contentLabel: UILabel!
+    var avatarImageView = UIImageView()
+    var lineView = UIView()
+    var nicknameLabel = UILabel()
+    var timeLabel = UILabel()
+    var contentLabel = UILabel()
     
     var comment: LFComment? {
         didSet{
@@ -22,7 +22,7 @@ class LFCommentCell: UITableViewCell {
             let url = user!.avatar_url
             avatarImageView.kf_setImageWithURL(NSURL(string: url!)!)
             nicknameLabel.text = user!.nickname
-            contentLabel.text = comment?.content
+            contentLabel.text = comment!.content
         }
     }
     
@@ -33,32 +33,33 @@ class LFCommentCell: UITableViewCell {
     }
 
     //界面设置
-    func setupUI(){
-        self.frame = CGRectMake(0, 0, 320, 63)
+   private func setupUI(){
         
         avatarImageView.frame = CGRectMake(10, 10, 32, 32)
         avatarImageView.image = UIImage(named: "Me_AvatarPlaceholder_75x75_")
+        avatarImageView.layer.cornerRadius = 16
+        avatarImageView.layer.masksToBounds = true
         addSubview(avatarImageView)
         
-        nicknameLabel.frame = CGRectMake(52, 10, 36, 17)
-        nicknameLabel.text = "Label"
+        nicknameLabel.frame = CGRectMake(52, 10, SCREENW/2, 17)
+        nicknameLabel.text = "绰号"
         nicknameLabel.textColor = UIColor.blackColor()
         nicknameLabel.font = UIFont.systemFontOfSize(14)
         addSubview(nicknameLabel)
         
-        contentLabel.frame = CGRectMake(52, 32, 258, 32)
-        contentLabel.text = "Label"
+        contentLabel.frame = CGRectMake(52, 32, SCREENW-52-10, 32)
+        contentLabel.text = "内容"
         contentLabel.textColor = UIColor.blackColor()
         contentLabel.font = UIFont.systemFontOfSize(13)
         addSubview(contentLabel)
         
-        timeLabel.frame = CGRectMake(277, 10, 33, 17)
-        timeLabel.text = "Label"
+        timeLabel.frame = CGRectMake(SCREENW-10-33, 10, 33, 17)
+        timeLabel.text = "时间"
         timeLabel.textColor = UIColor.blackColor()
         timeLabel.font = UIFont.systemFontOfSize(13)
         addSubview(timeLabel)
         
-        lineView.frame = CGRectMake(52, 63, 260, 1)
+        lineView.frame = CGRectMake(52, 63, SCREENW-52-10, 1)
         lineView.backgroundColor = UIColor.grayColor()
         addSubview(lineView)
     }

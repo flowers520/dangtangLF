@@ -10,7 +10,7 @@ import UIKit
 
 class LFTMALLViewController: UIViewController {
 
-    var webView: UIWebView!
+    var webView = UIWebView()
     var product: LFProduct?
     
     override func viewDidLoad() {
@@ -23,6 +23,7 @@ class LFTMALLViewController: UIViewController {
         let url = NSURL(string: product!.purchase_url!)
         let request = NSURLRequest(URL: url!)
         webView.loadRequest(request)
+        view.addSubview(webView)
     }
 
     private func setupNav(){

@@ -22,7 +22,7 @@ class LFCollectionTableViewCell: UITableViewCell {
                 self.placeholderButton.hidden = true
             }
             titleLabel.text = collectionPost!.title
-            likeButton.setTitle(" \(collectionPost!.likes_count!) ", forState: .Normal)
+            likeButton.setTitle("\(collectionPost!.likes_count!)", forState: .Normal)
         }
     }
 
@@ -61,16 +61,15 @@ class LFCollectionTableViewCell: UITableViewCell {
         self.placeholderButton.setImage(UIImage(named: "PlaceHolderImage_small_31x26_"), forState: .Normal)
         self.addSubview(placeholderButton)
         
-        self.titleLabel = UILabel(frame: CGRectMake(13,115,SCREENW/3,21))
-        self.titleLabel.adjustsFontSizeToFitWidth = true
+        self.titleLabel = UILabel(frame: CGRectMake(13,115,SCREENW-13-13,21))
+        self.titleLabel.font = UIFont.systemFontOfSize(14)
         self.titleLabel.textColor = UIColor.whiteColor()
         self.addSubview(titleLabel)
         
-        self.likeButton = UIButton(frame: CGRectMake((SCREENW-30-13),13,30,25))
+        self.likeButton = UIButton(frame: CGRectMake((SCREENW-13-50),13,50,25))
         self.likeButton.backgroundColor = UIColor.clearColor()
         self.likeButton.setImage(UIImage(named: "Feed_FavoriteIcon_17x17_"), forState: .Normal)
         self.likeButton.setTitle("0", forState: .Normal)
-//        self.likeButton.setTitleColor(LFGlobalRedColor(), forState: .Normal)
         self.likeButton.titleLabel?.font = UIFont.systemFontOfSize(14.0)
         self.likeButton.titleLabel?.textColor = UIColor.whiteColor()
         self.addSubview(self.likeButton)

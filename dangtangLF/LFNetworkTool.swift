@@ -200,7 +200,9 @@ class LFNetworkTool: NSObject {
     func loadProductDetailData(id: Int, finished:(productDetail: LFProductDetail)->()){
         SVProgressHUD.showWithStatus("正在加载...")
         let url = BASE_URL + "v2/items/\(id)"
-        Alamofire.request(.GET, url).responseJSON { (response) -> Void in
+        Alamofire
+            .request(.GET, url)
+            .responseJSON { (response) -> Void in
             guard response.result.isSuccess else{
                 SVProgressHUD.showErrorWithStatus("加载失败...")
                 return
@@ -229,7 +231,9 @@ class LFNetworkTool: NSObject {
         let url = BASE_URL + "v2/items/\(id)/comments"
         let params = ["limit": 20,
                         "offset": 0]
-        Alamofire.request(.GET, url, parameters: params).responseJSON { (response) -> Void in
+        Alamofire
+            .request(.GET, url, parameters: params)
+            .responseJSON { (response) -> Void in
             guard response.result.isSuccess else{
                 SVProgressHUD.showErrorWithStatus("加载失败...")
                 return

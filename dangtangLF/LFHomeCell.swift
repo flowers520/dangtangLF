@@ -30,7 +30,8 @@ class LFHomeCell: UITableViewCell {
                     self.placehoderBtn.hidden = true
             }
             titleLabel.text = homeItem?.title
-            favoriteBtn.setTitle(" " + String(homeItem?.liked_count) + " ", forState: .Normal)
+            favoriteBtn.setTitle(String(homeItem!.likes_count!), forState: .Normal)
+            
         }
     }
     
@@ -58,19 +59,20 @@ class LFHomeCell: UITableViewCell {
         placehoderBtn.setImage(UIImage(named: "PlaceHolderImage_small_31x26_"), forState: .Normal)
         addSubview(placehoderBtn)
         
-        titleLabel = UILabel(frame: CGRectMake(13,125,SCREENW/3,21))
-        titleLabel.adjustsFontSizeToFitWidth = true
+        titleLabel = UILabel(frame: CGRectMake(13,125,SCREENW-13-13,21))
+//        titleLabel.adjustsFontSizeToFitWidth = true
         titleLabel.font = UIFont.systemFontOfSize(14)
         titleLabel.textColor = UIColor.whiteColor()
         addSubview(titleLabel)
         
-        favoriteBtn = UIButton(frame: CGRectMake((SCREENW-10-30),18,30,25))
+        favoriteBtn = UIButton(frame: CGRectMake((SCREENW-10-50),18,50,25))
         favoriteBtn.layer.cornerRadius = favoriteBtn.bounds.height * 0.5
         favoriteBtn.layer.masksToBounds = true
         favoriteBtn.layer.rasterizationScale = UIScreen.mainScreen().scale
         favoriteBtn.layer.shouldRasterize = true
         favoriteBtn.backgroundColor = UIColor.clearColor()
         favoriteBtn.setTitle("0", forState: .Normal)
+        favoriteBtn.titleLabel?.font = UIFont.systemFontOfSize(14)
         favoriteBtn.titleLabel?.textColor = UIColor.whiteColor()
         favoriteBtn.setImage(UIImage(named: "Feed_FavoriteIcon_17x17_"), forState: .Normal)
         favoriteBtn.addTarget(self, action: Selector("favoriteBtnClick:"), forControlEvents: .TouchUpInside)
