@@ -98,6 +98,7 @@ class LFCategoryBottomView: UIView {
     
     func groupButtonClick(button: UIButton){
         delegate?.bottomViewButtonDidClicked(button)
+
     }
     
     private func setupLabel(title: String)->UILabel{

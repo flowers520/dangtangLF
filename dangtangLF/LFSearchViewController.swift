@@ -12,19 +12,15 @@ class LFSearchViewController: LFBaseViewController {
     var searchRecordView = LFSearchRecordView()
   
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        searchBar.becomeFirstResponder()
-    }
-    override func viewDidDisappear(animated: Bool) {
-        super.viewDidDisappear(animated)
-        searchBar.resignFirstResponder()
-    }
-//    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+//    override func viewDidAppear(animated: Bool) {
+//        super.viewDidAppear(animated)
+//        searchBar.becomeFirstResponder()
+//    }
+//    override func viewWillDisappear(animated: Bool) {
+//        super.viewDidDisappear(animated)
 //        searchBar.resignFirstResponder()
 //    }
-    
-    
+//    
     override func viewDidLoad() {
         super.viewDidLoad()
         //设置界面
@@ -45,17 +41,23 @@ class LFSearchViewController: LFBaseViewController {
     }
     //界面设置
     private func setupUI(){
+        searchRecordView.backgroundColor = LFGlobalColor()
+        searchRecordView.frame = CGRectMake(0, 64, SCREENW, SCREENH - 64)
+        view.addSubview(searchRecordView)
+
         //导航栏
         navigationItem.titleView = searchBar
         searchBar.delegate = self
         searchBar.placeholder = "搜索商品，专题"
+        //闭包
+        searchRecordView.cloureBack = ({(hotWords: String) -> Void in
+            self.searchBar.text = hotWords
+            self.searchBar.becomeFirstResponder()
+        })
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIView())
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "取消", style: .Plain, target: self, action: Selector("navigationBackClick"))
 
         
-        searchRecordView.backgroundColor = LFGlobalColor()
-        searchRecordView.frame = CGRectMake(0, 64, SCREENW, SCREENH - 64)
-        view.addSubview(searchRecordView)
     }
     
     //搜索条件点击
@@ -66,12 +68,15 @@ class LFSearchViewController: LFBaseViewController {
     //返回按钮、取消按钮点击
     func navigationBackClick(){
         navigationController?.popViewControllerAnimated(true)
+//        let searchViewController = LFSearchViewController()
+//        self.presentViewController(searchViewController, animated: true, completion: nil)
     }
     
 
 }
 
 extension LFSearchViewController: UISearchBarDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,LFCollectionViewCellDelegate,LFSortTableViewDelegate{
+    
     
     func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool {
         //设置collectionView
@@ -86,6 +91,7 @@ extension LFSearchViewController: UISearchBarDelegate,UICollectionViewDelegate,U
         //排序
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_sort_21x21_"), style: .Plain, target: self, action: Selector("sortButtonClick"))
 
+        
         //根据搜索添加进行搜索
         let keyword = searchBar.text
         LFNetworkTool.shareNetworkTool.loadSearchResult(keyword!, sort: "") { [weak self] (results) -> () in
@@ -139,6 +145,7 @@ extension LFSearchViewController: UISearchBarDelegate,UICollectionViewDelegate,U
     
     // MARK: - YMSortTableViewDelegate
     func sortView(sortView: LFSortTableView, didSelectSortAtIndexPath sort: String) {
+        
         /// 根据搜索条件进行搜索
         let keyword = searchBar.text
         LFNetworkTool.shareNetworkTool.loadSearchResult(keyword!, sort: sort) { [weak self] (results) in
@@ -148,4 +155,10 @@ extension LFSearchViewController: UISearchBarDelegate,UICollectionViewDelegate,U
         }
     }
 
+//    //热词显示
+//    func sethotWordsButton(hotWords: String) {
+//        self.searchBar.text = hotWords
+//        
+//    }
+    
 }
