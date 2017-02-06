@@ -23,7 +23,6 @@ class LFProduct: NSObject{
     var purchase_status: Int?
     var purchase_type: Int?
     var purchase_url: String?
-    var purchase_at: Int?
     var updated_at: Int?
     var url: String?
     

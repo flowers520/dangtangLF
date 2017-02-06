@@ -12,7 +12,10 @@ import SnapKit
 class LFProductDetailViewController: LFBaseViewController{
 
     var product: LFProduct?
+    
     var result: LFSearchResult?
+    
+    
     var type = String()
     
     //scrollView(滚动视图 上下的视图)
@@ -21,6 +24,7 @@ class LFProductDetailViewController: LFBaseViewController{
     var toolBarView =  LFProductDetailToolBar()
 
     
+
     override func viewDidLoad() {
         super.viewDidLoad()
         //界面设置

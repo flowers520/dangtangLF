@@ -56,7 +56,7 @@ class LFHomeViewController: LFBaseViewController {
             UIView.animateWithDuration(kAnimationDuration, animations: { () -> Void in
                 self.titlesView!.transform = CGAffineTransformTranslate(self.titlesView!.transform, 0, self.titlesView!.height)
             })
-            titlesViewBool = false
+            titlesViewBool = true
         }
         
     }

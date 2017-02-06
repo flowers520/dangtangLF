@@ -4,7 +4,7 @@ import UIKit
 
 class LFSearchViewController: LFBaseViewController {
     //搜索结果列表
-    var  results = [LFSearchResult]()
+    var results = [LFSearchResult]()
     weak var collectionView: UICollectionView?
     var searchBar = UISearchBar()
     
@@ -12,15 +12,17 @@ class LFSearchViewController: LFBaseViewController {
     var searchRecordView = LFSearchRecordView()
   
     
-//    override func viewDidAppear(animated: Bool) {
-//        super.viewDidAppear(animated)
-//        searchBar.becomeFirstResponder()
-//    }
-//    override func viewDidDisappear(animated: Bool) {
-//        super.viewDidDisappear(animated)
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        searchBar.becomeFirstResponder()
+    }
+    override func viewDidDisappear(animated: Bool) {
+        super.viewDidDisappear(animated)
+        searchBar.resignFirstResponder()
+    }
+//    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
 //        searchBar.resignFirstResponder()
 //    }
-
     
     
     override func viewDidLoad() {
@@ -47,13 +49,8 @@ class LFSearchViewController: LFBaseViewController {
         navigationItem.titleView = searchBar
         searchBar.delegate = self
         searchBar.placeholder = "搜索商品，专题"
-//        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIView())
-//        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "取消", style: .Plain, target: self, action: Selector("navigationBackClick"))
-        //返回
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "checkUserType_backward_9x15_"), style: .Plain, target: self, action: Selector("navigationBackClick"))
-        //排序
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_sort_21x21_"), style: .Plain, target: self, action: Selector("sortButtonClick"))
-
+        navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIView())
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "取消", style: .Plain, target: self, action: Selector("navigationBackClick"))
 
         
         searchRecordView.backgroundColor = LFGlobalColor()
@@ -81,9 +78,14 @@ extension LFSearchViewController: UISearchBarDelegate,UICollectionViewDelegate,U
         setupCollectionView()
         return true
     }
-    //搜索按钮点击
-    func searchBarResultsListButtonClicked(searchBar: UISearchBar) {
+    //搜索按钮点击(searchBarSearchButtonClicked)
+    func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
+        //返回
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "checkUserType_backward_9x15_"), style: .Plain, target: self, action: Selector("navigationBackClick"))
+        //排序
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_sort_21x21_"), style: .Plain, target: self, action: Selector("sortButtonClick"))
+
         //根据搜索添加进行搜索
         let keyword = searchBar.text
         LFNetworkTool.shareNetworkTool.loadSearchResult(keyword!, sort: "") { [weak self] (results) -> () in
@@ -109,7 +111,7 @@ extension LFSearchViewController: UISearchBarDelegate,UICollectionViewDelegate,U
         productDetailVC.title = "商品详情"
         productDetailVC.type = String(self)
         productDetailVC.result = results[indexPath.item]
-        navigationController?.pushViewController(productDetailVC, animated: true)
+//        navigationController?.pushViewController(productDetailVC, animated: true)
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout

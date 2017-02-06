@@ -8,6 +8,7 @@
 
 import UIKit
 
+
 class LFCommentCell: UITableViewCell {
 
     var avatarImageView = UIImageView()
@@ -20,7 +21,7 @@ class LFCommentCell: UITableViewCell {
         didSet{
             let user = comment?.user
             let url = user!.avatar_url
-            avatarImageView.kf_setImageWithURL(NSURL(string: url!)!)
+            avatarImageView.kf_setImageWithURL(NSURL(string: url!)!, placeholderImage: UIImage(named: "Me_AvatarPlaceholder_75x75_"))
             nicknameLabel.text = user!.nickname
             contentLabel.text = comment!.content
         }

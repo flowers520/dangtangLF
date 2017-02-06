@@ -119,7 +119,7 @@ class LFNetworkTool: NSObject {
     }
  
     /**
-     根据搜索条件进行搜索
+     根据搜索条件进行搜索(LFSearchResult --> LFProduct)
      */
     func loadSearchResult(keyword: String,sort: String,finished:(results: [LFSearchResult])->()){
         SVProgressHUD.showWithStatus("正在加载...")
@@ -167,7 +167,9 @@ class LFNetworkTool: NSObject {
                         "generation": 1,
                         "limit": 20,
                         "offset": 0]
-        Alamofire.request(.GET, url, parameters: params ).responseJSON { (response) -> Void in
+        Alamofire
+            .request(.GET, url, parameters: params )
+            .responseJSON { (response) -> Void in
             guard response.result.isSuccess else{
                 SVProgressHUD.showErrorWithStatus("加载失败...")
                 return
