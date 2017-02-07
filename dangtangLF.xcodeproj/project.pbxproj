@@ -388,7 +388,6 @@
 				38FF6B081E28FD390010FD55 /* Others */,
 				38FF6AFD1E28FC670010FD55 /* Assets.xcassets */,
 				38FF6AFF1E28FC670010FD55 /* LaunchScreen.storyboard */,
-				38FF6B021E28FC670010FD55 /* Info.plist */,
 			);
 			path = dangtangLF;
 			sourceTree = "<group>";
@@ -396,6 +395,7 @@
 		38FF6B081E28FD390010FD55 /* Others */ = {
 			isa = PBXGroup;
 			children = (
+				38FF6B021E28FC670010FD55 /* Info.plist */,
 				388588C81E44956F005DCEF7 /* SettingCell.plist */,
 				38FF6AF61E28FC670010FD55 /* AppDelegate.swift */,
 			);
