@@ -13,6 +13,9 @@ class LFTopicViewController: UITableViewController,LFHomeCellDelegate {
     var type = Int()
     //首页列表数据
     var items = [LFHomeItem]()
+    //刷新控件
+    var refreshControls = LFRefreshControl()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +28,7 @@ class LFTopicViewController: UITableViewController,LFHomeCellDelegate {
         LFNetworkTool.shareNetworkTool.loadHomeInfo(type) { [weak self](homeItems) -> () in
             self?.items = homeItems
             self?.tableView.reloadData()
-            self?.refreshControl?.endRefreshing()
+            self?.refreshControls.endRefreshing()
             
         }
     }
@@ -42,15 +45,17 @@ class LFTopicViewController: UITableViewController,LFHomeCellDelegate {
         tableView.registerClass(LFHomeCell.classForCoder(), forCellReuseIdentifier: "homeCellID")
         
         //添加刷新控件
-        refreshControl = LFRefreshControl()
-        refreshControl?.beginRefreshing()
-        refreshControl?.addTarget(self, action: Selector("loadHomeData"), forControlEvents: .ValueChanged)
+        refreshControl = refreshControls
+        refreshControl?.tintColor = UIColor.clearColor()
+        refreshControl!.beginRefreshing()
+        refreshControl!.addTarget(self, action: Selector("loadHomeData"), forControlEvents: .ValueChanged)
+        
         
         //获取首页数据
         LFNetworkTool.shareNetworkTool.loadHomeInfo(type) { [weak self](homeItems) -> () in
             self!.items = homeItems
             self!.tableView.reloadData()
-            self!.refreshControl?.endRefreshing()
+            self!.refreshControls.endRefreshing()
         }
     }
     
@@ -90,5 +95,7 @@ class LFTopicViewController: UITableViewController,LFHomeCellDelegate {
             
         }
     }
+
+
 
 }

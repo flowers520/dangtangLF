@@ -17,6 +17,8 @@ class LFRefreshControl: UIRefreshControl {
     private var loadingViewAnimationFlag = false
     //懒加载
     private lazy var refreshView:LFRefreshView! = LFRefreshView()
+    //定义时钟
+    var timer:NSTimer!
     
     override init() {
         super.init()
@@ -50,19 +52,20 @@ class LFRefreshControl: UIRefreshControl {
         if frame.origin.y >= 0{
             return
         }
-        //判断是否已经触发刷新事件
+        //判断是否已经触发刷新事件 和 圈圈动画
         if refreshing && !loadingViewAnimationFlag{
             //执行动画
             loadingViewAnimationFlag = true
             
             refreshView.startLoadingViewAnimation()
+//            animateLabelRefreshStep1()
             return
         }
-        if frame.origin.y >= -40 && rotationArrowFlag{
+        if frame.origin.y >= -40 && rotationArrowFlag{ //不旋转箭头
             //旋转回到原始位置
             rotationArrowFlag = false
             refreshView.rotationArrowIcon(rotationArrowFlag)
-        }else if frame.origin.y < -40 && !rotationArrowFlag {
+        }else if frame.origin.y < -40 && !rotationArrowFlag {//旋转箭头
             rotationArrowFlag = true
             refreshView.rotationArrowIcon(rotationArrowFlag)
         }
@@ -73,11 +76,83 @@ class LFRefreshControl: UIRefreshControl {
         super.endRefreshing()
         //关闭圈圈动画
         refreshView.stopLoadingViewAnimation()
-        
         loadingViewAnimationFlag = false
     }
     
 
+    //label animation step1
+    func animateLabelRefreshStep1(){
+        refreshView.isAnimatingLabel = true
+        UIView.animateWithDuration(0.1, delay: 0.0, options: UIViewAnimationOptions.CurveLinear, animations: { () -> Void in
+            self.refreshView.labels[self.refreshView.currentLabelIndex].transform = CGAffineTransformMakeRotation(CGFloat(M_PI_4))
+            self.refreshView.labels[self.refreshView.currentLabelIndex].textColor = self.getNextColor()
+            }) { (finished) -> Void in
+                UIView.animateWithDuration(0.05, delay: 0, options: .CurveLinear, animations: { () -> Void in
+                    self.refreshView.labels[self.refreshView.currentLabelIndex].transform = CGAffineTransformIdentity
+                    self.refreshView.labels[self.refreshView.currentLabelIndex].textColor = UIColor.blackColor()
+                    }, completion: { (finished) -> Void in
+                        ++self.refreshView.currentLabelIndex
+                        if self.refreshView.currentLabelIndex < self.refreshView.labels.count{
+                            self.animateLabelRefreshStep1()
+                        }else{
+                            self.animatieLabelRefreshStep2()
+   
+                        }
+                })
+        }
+    }
+    //label animation step2
+    func animatieLabelRefreshStep2(){
+        UIView.animateWithDuration(0.35, delay: 0, options: .CurveLinear, animations: { () -> Void in
+            for index in 0..<self.refreshView.labels.count{
+                self.refreshView.labels[index].transform = CGAffineTransformMakeScale(1.5, 1.5)
+            }
+            
+            }) { (finished) -> Void in
+                UIView.animateWithDuration(0.25, delay: 0, options: .CurveLinear, animations: { () -> Void in
+                    for index in 0..<self.refreshView.labels.count{
+                        self.refreshView.labels[index].transform = CGAffineTransformIdentity
+                    }
+                    }, completion: { (finished) -> Void in
+                        if self.refreshing{
+                            self.refreshView.currentLabelIndex = 0
+                            self.animateLabelRefreshStep1()
+                        }else{
+                            self.refreshView.isAnimatingLabel = false
+                            self.refreshView.currentLabelIndex = 0
+                            for index in 0..<self.refreshView.labels.count{
+                                self.refreshView.labels[index].textColor = UIColor.blackColor()
+                                self.refreshView.labels[index].transform = CGAffineTransformIdentity
+                            }
+                        }
+                })
+                
+        }
+    }
+    
+    //随机颜色
+    func getNextColor() -> UIColor{
+        var colorsArray: Array<UIColor> = [UIColor.magentaColor(),UIColor.brownColor(),UIColor.yellowColor(),UIColor.redColor(),UIColor.greenColor(),UIColor.blueColor(),UIColor.orangeColor()]
+        if refreshView.currentColorIndex == colorsArray.count{
+            refreshView.currentColorIndex = 0
+        }
+        let returnColor = colorsArray[refreshView.currentColorIndex]
+        ++refreshView.currentColorIndex
+        return returnColor
+    }
+
+    
+    //时钟四秒停留
+    func timerDelay4(){
+        
+        timer = NSTimer.scheduledTimerWithTimeInterval(4.0, target: self, selector: Selector("endOfWork"), userInfo: nil, repeats: true)
+    }
+    func endOfWord(){
+        endRefreshing()
+        //关闭时钟
+        timer.invalidate()
+        timer = nil
+    }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")

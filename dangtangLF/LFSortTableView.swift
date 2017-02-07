@@ -9,9 +9,11 @@
 import UIKit
 import SnapKit
 
-protocol LFSortTableViewDelegate: NSObjectProtocol{
-    func sortView(sortView: LFSortTableView, didSelectSortAtIndexPath sort: String)
-}
+//protocol LFSortTableViewDelegate: NSObjectProtocol{
+//    func sortView(sortView: LFSortTableView, didSelectSortAtIndexPath sort: String)
+//}
+//闭包传值
+typealias LFSortTabaleViewCloureBack = (sorts: String) -> Void
 
 class LFSortTableView: UIView {
         
@@ -24,27 +26,15 @@ class LFSortTableView: UIView {
         window?.addSubview(sortTableView)
     }
 
-    weak var delegate: LFSortTableViewDelegate?
+//    weak var delegate: LFSortTableViewDelegate?
+    
+    var cloureBack: LFSortTabaleViewCloureBack? = nil
+    
     let cells = ["默认排序","按热度排序","价格从低到高","价格从高到低"]
     //排序方式
     let sorts = ["","hot","price%3Aasc","price%3Adesc"]
-    private lazy var bgView: UIImageView = {
-        let bgView = UIImageView()
-        bgView.userInteractionEnabled = true
-        bgView.image = UIImage(named: "bg_menu_sort_140x46_")
-        return bgView
-    }()
-    private lazy var tableView: UITableView = {
-        let tableView = UITableView()
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.backgroundColor = UIColor.clearColor()
-        tableView.rowHeight = 35
-        tableView.scrollEnabled = false
-        tableView.separatorStyle = .None
-        tableView.registerClass(LFSortCell.classForCoder(), forCellReuseIdentifier: "sortTableViewCellID")
-        return tableView
-    }()
+    var bgView = UIImageView()
+    var tableView =  UITableView()
 
     
     //视图移除
@@ -63,18 +53,30 @@ class LFSortTableView: UIView {
     
     //界面设置
     private func setupUI(){
+        
+        bgView.userInteractionEnabled = true
+        bgView.image = UIImage(named: "bg_menu_sort_140x46_")
         addSubview(bgView)
+        
+        
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.backgroundColor = UIColor.clearColor()
+        tableView.rowHeight = 30
+        tableView.scrollEnabled = false
+        tableView.separatorStyle = .None
+        tableView.registerClass(LFSortCell.classForCoder(), forCellReuseIdentifier: "sortTableViewCellID")
         bgView.addSubview(tableView)
         
         bgView.snp_makeConstraints { (make) -> Void in
             make.top.equalTo(self).offset(60)
             make.right.equalTo(self)
-            make.size.equalTo(CGSizeMake(140, 160))
+            make.size.equalTo(CGSizeMake(120, 126))
         }
         
         
         tableView.snp_makeConstraints { (make) -> Void in
-            make.edges.equalTo(bgView).offset(UIEdgeInsetsMake(kMargin, kMargin, -kMargin, 0))
+            make.edges.equalTo(bgView).offset(UIEdgeInsetsMake(6, 0, 0, 0))
         }
         
     
@@ -93,10 +95,14 @@ extension LFSortTableView: UITableViewDelegate,UITableViewDataSource{
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCellWithIdentifier("sortTableViewCellID", forIndexPath: indexPath) as! LFSortCell
         cell.titleLabel.text = cells[indexPath.row]
+        cell.backgroundColor = UIColor.grayColor()
         return cell
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let sort = sorts[indexPath.row]
-        delegate?.sortView(self, didSelectSortAtIndexPath: sort)
+//        delegate?.sortView(self, didSelectSortAtIndexPath: sort)
+        
+        cloureBack!(sorts: sort)
+        
     }
 }

@@ -1,6 +1,7 @@
 
 
 import UIKit
+import SnapKit
 
 class LFSearchViewController: LFBaseViewController {
     //搜索结果列表
@@ -10,8 +11,7 @@ class LFSearchViewController: LFBaseViewController {
     
     //搜索记录view
     var searchRecordView = LFSearchRecordView()
-  
-    
+    var sortTableView = LFSortTableView()
 //    override func viewDidAppear(animated: Bool) {
 //        super.viewDidAppear(animated)
 //        searchBar.becomeFirstResponder()
@@ -49,15 +49,44 @@ class LFSearchViewController: LFBaseViewController {
         navigationItem.titleView = searchBar
         searchBar.delegate = self
         searchBar.placeholder = "搜索商品，专题"
-        //闭包
+        //LFSearchrecord闭包
         searchRecordView.cloureBack = ({(hotWords: String) -> Void in
             self.searchBar.text = hotWords
-            self.searchBar.becomeFirstResponder()
+            self.SearchKeywordResult()
+            
+        })
+        //LFSortTableView 闭包
+        
+        sortTableView.cloureBack = ({(horts: String) -> Void in
+
+            /// 根据搜索条件进行搜索
+            let keyword = self.searchBar.text
+            LFNetworkTool.shareNetworkTool.loadSearchResult(keyword!, sort: horts) { [weak self] (results) in
+                self!.sortTableView.dismiss()
+                self!.results = results
+                self!.collectionView!.reloadData()
+            }
+
         })
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIView())
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "取消", style: .Plain, target: self, action: Selector("navigationBackClick"))
 
         
+    }
+    
+    ////根据搜索添加进行搜索
+    func SearchKeywordResult(){
+        
+        setupCollectionView()
+        //返回
+        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "checkUserType_backward_9x15_"), style: .Plain, target: self, action: Selector("navigationBackClick"))
+        //排序
+        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_sort_21x21_"), style: .Plain, target: self, action: Selector("sortButtonClick"))
+
+        LFNetworkTool.shareNetworkTool.loadSearchResult(searchBar.text!, sort: "") { [weak self] (results) -> () in
+            self?.results = results
+            self!.collectionView!.reloadData()
+        }
     }
     
     //搜索条件点击
@@ -68,14 +97,25 @@ class LFSearchViewController: LFBaseViewController {
     //返回按钮、取消按钮点击
     func navigationBackClick(){
         navigationController?.popViewControllerAnimated(true)
-//        let searchViewController = LFSearchViewController()
-//        self.presentViewController(searchViewController, animated: true, completion: nil)
+//        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+//    // MARK: - YMSortTableViewDelegate
+//    func sortView(sortView: LFSortTableView, didSelectSortAtIndexPath sort: String) {
+//        
+//        /// 根据搜索条件进行搜索
+//        let keyword = searchBar.text
+//        LFNetworkTool.shareNetworkTool.loadSearchResult(keyword!, sort: sort) { [weak self] (results) in
+//            sortView.dismiss()
+//            self!.results = results
+//            self!.collectionView!.reloadData()
+//        }
+//    }
+
 
 }
 
-extension LFSearchViewController: UISearchBarDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,LFCollectionViewCellDelegate,LFSortTableViewDelegate{
+extension LFSearchViewController: UISearchBarDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,LFCollectionViewCellDelegate{
     
     
     func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool {
@@ -86,18 +126,9 @@ extension LFSearchViewController: UISearchBarDelegate,UICollectionViewDelegate,U
     //搜索按钮点击(searchBarSearchButtonClicked)
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
-        //返回
-        navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "checkUserType_backward_9x15_"), style: .Plain, target: self, action: Selector("navigationBackClick"))
-        //排序
-        navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_sort_21x21_"), style: .Plain, target: self, action: Selector("sortButtonClick"))
 
-        
         //根据搜索添加进行搜索
-        let keyword = searchBar.text
-        LFNetworkTool.shareNetworkTool.loadSearchResult(keyword!, sort: "") { [weak self] (results) -> () in
-            self?.results = results
-            self!.collectionView!.reloadData()
-        }
+        SearchKeywordResult()
     }
     
     //MARK: - UICollectionViewDataSource
@@ -143,22 +174,6 @@ extension LFSearchViewController: UISearchBarDelegate,UICollectionViewDelegate,U
         }
     }
     
-    // MARK: - YMSortTableViewDelegate
-    func sortView(sortView: LFSortTableView, didSelectSortAtIndexPath sort: String) {
-        
-        /// 根据搜索条件进行搜索
-        let keyword = searchBar.text
-        LFNetworkTool.shareNetworkTool.loadSearchResult(keyword!, sort: sort) { [weak self] (results) in
-            sortView.dismiss()
-            self!.results = results
-            self!.collectionView!.reloadData()
-        }
-    }
 
-//    //热词显示
-//    func sethotWordsButton(hotWords: String) {
-//        self.searchBar.text = hotWords
-//        
-//    }
     
 }

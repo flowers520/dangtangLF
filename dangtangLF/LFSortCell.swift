@@ -21,10 +21,11 @@ class LFSortCell: UITableViewCell {
     //界面设置
     func setupUI(){
         
-        viewCell.frame = CGRectMake(0, 42, SCREENW, 1)
+        viewCell.frame = CGRectMake(0, 29, SCREENW, 1)
+        viewCell.backgroundColor = LFGlobalColor()
         addSubview(viewCell)
         
-        titleLabel.frame = CGRectMake(10, 0, SCREENW-10-10, 43)
+        titleLabel.frame = CGRectMake(10, 0, SCREENW-10-10, 29)
         titleLabel.text = "Label"
         titleLabel.textColor = UIColor.whiteColor()
         addSubview(titleLabel)
