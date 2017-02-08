@@ -8,12 +8,28 @@
 
 import UIKit
 import SnapKit
+import SVProgressHUD
 
 class LFProductDetailViewController: LFBaseViewController{
 
     var product: LFProduct?
     
-    var result: LFSearchResult?
+//    var tempValue: Int?
+    
+    var result: LFSearchResult?{
+        //变化后动作
+        didSet{
+//            tempValue = result?.id
+//            LFNetworkTool.shareNetworkTool.loadProductDataID(tempValue!) { (productID) -> () in
+//                SVProgressHUD.showInfoWithStatus("加载完成")
+//            }
+
+        }
+        //变化前
+        willSet{
+            
+        }
+    }
     
     
     var type = String()
@@ -48,7 +64,11 @@ class LFProductDetailViewController: LFBaseViewController{
         scrollView.showsHorizontalScrollIndicator = false
         scrollView.delegate = self
         //scrollView传数据到当前行
-        scrollView.product = product
+        if product == nil{
+        scrollView.result = result}else{
+            scrollView.product = product
+        }
+        
         view.addSubview(scrollView)
         //底部栏
         toolBarView.delegate = self

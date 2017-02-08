@@ -198,6 +198,33 @@ class LFNetworkTool: NSObject {
             }
         }
     }
+    //通过id 号获取单品
+    func loadProductDataID(id: Int, finished: (productID: LFProduct)->()){
+        SVProgressHUD.showWithStatus("正在加载...")
+        let url = BASE_URL + "v2/items/\(id)"
+        Alamofire
+            .request(.GET, url)
+            .responseJSON { (response) -> Void in
+                guard response.result.isSuccess else{
+                    SVProgressHUD.showErrorWithStatus("加载失败...")
+                    return
+                }
+                if let value = response.result.value{
+                    let dict = JSON(value)
+                    let code = dict["code"].intValue
+                    let message = dict["message"].stringValue
+                    guard code == RETURN_OK else{
+                        SVProgressHUD.showInfoWithStatus(message)
+                        return
+                    }
+                    SVProgressHUD.dismiss()
+                    if let data = dict["data"].dictionaryObject{
+                        let productID = LFProduct(dict: data)
+                        finished(productID: productID)
+                    }
+                }
+        }
+    }
     /**
      获取单品详情数据
      */

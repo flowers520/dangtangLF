@@ -31,6 +31,14 @@ class LFProductDetailTopView: UIView {
             describeLabel.text = product!.describe
         }
     }
+    
+    var result:LFSearchResult?{
+        didSet{
+            titleLabel.text = result?.name
+            priceLabel.text = "\(result!.price!)"
+            describeLabel.text = result?.describle
+        }
+    }
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()

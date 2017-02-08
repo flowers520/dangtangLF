@@ -8,12 +8,12 @@
 
 import UIKit
 import SnapKit
+import SVProgressHUD
 
-//protocol LFSortTableViewDelegate: NSObjectProtocol{
-//    func sortView(sortView: LFSortTableView, didSelectSortAtIndexPath sort: String)
-//}
-//闭包传值
-typealias LFSortTabaleViewCloureBack = (sorts: String) -> Void
+protocol LFSortTableViewDelegate: NSObjectProtocol{
+    func sortView(sortView: LFSortTableView, didSelectSortAtIndexPath sort: String)
+}
+
 
 class LFSortTableView: UIView {
         
@@ -26,9 +26,10 @@ class LFSortTableView: UIView {
         window?.addSubview(sortTableView)
     }
 
-//    weak var delegate: LFSortTableViewDelegate?
+    weak var delegate: LFSortTableViewDelegate?
     
-    var cloureBack: LFSortTabaleViewCloureBack? = nil
+
+
     
     let cells = ["默认排序","按热度排序","价格从低到高","价格从高到低"]
     //排序方式
@@ -99,10 +100,11 @@ extension LFSortTableView: UITableViewDelegate,UITableViewDataSource{
         return cell
     }
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+
         let sort = sorts[indexPath.row]
-//        delegate?.sortView(self, didSelectSortAtIndexPath: sort)
+        delegate?.sortView(self, didSelectSortAtIndexPath: sort)
         
-        cloureBack!(sorts: sort)
+        SVProgressHUD.showInfoWithStatus(sort)
         
     }
 }

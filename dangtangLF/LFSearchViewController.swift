@@ -6,6 +6,7 @@ import SnapKit
 class LFSearchViewController: LFBaseViewController {
     //搜索结果列表
     var results = [LFSearchResult]()
+    var productID: LFProduct?
     weak var collectionView: UICollectionView?
     var searchBar = UISearchBar()
     
@@ -55,19 +56,7 @@ class LFSearchViewController: LFBaseViewController {
             self.SearchKeywordResult()
             
         })
-        //LFSortTableView 闭包
-        
-        sortTableView.cloureBack = ({(horts: String) -> Void in
 
-            /// 根据搜索条件进行搜索
-            let keyword = self.searchBar.text
-            LFNetworkTool.shareNetworkTool.loadSearchResult(keyword!, sort: horts) { [weak self] (results) in
-                self!.sortTableView.dismiss()
-                self!.results = results
-                self!.collectionView!.reloadData()
-            }
-
-        })
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIView())
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "取消", style: .Plain, target: self, action: Selector("navigationBackClick"))
 
@@ -91,6 +80,13 @@ class LFSearchViewController: LFBaseViewController {
     
     //搜索条件点击
     func sortButtonClick(){
+//        let sortView = LFSortTableView()
+//        view.addSubview(sortView)
+//        sortView.snp_makeConstraints { (make) -> Void in
+//            make.top.equalTo(self.view).offset(60)
+//            make.right.equalTo(self.view)
+//            make.size.equalTo(CGSizeMake(120, 126))
+//        }
         LFSortTableView.show()
     }
     
@@ -100,22 +96,10 @@ class LFSearchViewController: LFBaseViewController {
 //        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
-//    // MARK: - YMSortTableViewDelegate
-//    func sortView(sortView: LFSortTableView, didSelectSortAtIndexPath sort: String) {
-//        
-//        /// 根据搜索条件进行搜索
-//        let keyword = searchBar.text
-//        LFNetworkTool.shareNetworkTool.loadSearchResult(keyword!, sort: sort) { [weak self] (results) in
-//            sortView.dismiss()
-//            self!.results = results
-//            self!.collectionView!.reloadData()
-//        }
-//    }
-
 
 }
 
-extension LFSearchViewController: UISearchBarDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,LFCollectionViewCellDelegate{
+extension LFSearchViewController: UISearchBarDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,LFCollectionViewCellDelegate,LFSortTableViewDelegate{
     
     
     func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool {
@@ -144,11 +128,18 @@ extension LFSearchViewController: UISearchBarDelegate,UICollectionViewDelegate,U
     
     //MARK: - UICollectionViewDelegate
     func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath) {
+
+        let tempValueID:Int = results[indexPath.item].id!
+        LFNetworkTool.shareNetworkTool.loadProductDataID(tempValueID) { [weak self](productID) -> () in
+            self!.productID = productID
+        }
+
         let productDetailVC = LFProductDetailViewController()
         productDetailVC.title = "商品详情"
         productDetailVC.type = String(self)
         productDetailVC.result = results[indexPath.item]
-//        navigationController?.pushViewController(productDetailVC, animated: true)
+        productDetailVC.product = productID
+        navigationController?.pushViewController(productDetailVC, animated: true)
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout
@@ -173,6 +164,18 @@ extension LFSearchViewController: UISearchBarDelegate,UICollectionViewDelegate,U
             
         }
     }
+    
+        // MARK: - YMSortTableViewDelegate
+        func sortView(sortView: LFSortTableView, didSelectSortAtIndexPath sort: String) {
+    
+            /// 根据搜索条件进行搜索
+            let keyword = searchBar.text
+            LFNetworkTool.shareNetworkTool.loadSearchResult(keyword!, sort: sort) { [weak self] (results) -> Void in
+                sortView.dismiss()
+                self!.results = results
+                self!.collectionView!.reloadData()
+            }
+        }
     
 
     

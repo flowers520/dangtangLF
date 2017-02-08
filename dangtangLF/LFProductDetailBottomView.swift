@@ -33,6 +33,23 @@ class LFProductDetailBottomView: UIView {
         }
     }
     
+    var result: LFSearchResult?{
+        didSet{
+            weak var weakSelf = self
+            //获取单品详细数据
+            LFNetworkTool.shareNetworkTool.loadProductDetailData(result!.id!) { (productDetail) -> () in
+                weakSelf?.choiceButtonView.commentButton.setTitle("评论\(productDetail.comments_count!)", forState: .Normal)
+                weakSelf?.webView.loadHTMLString(productDetail.detail_html!, baseURL: nil)
+            }
+            //获取评论数据
+            LFNetworkTool.shareNetworkTool.loadProductDetailComments(result!.id!) { (comments) -> () in
+                weakSelf?.comments = comments
+                weakSelf?.tableView.reloadData()
+            }
+        }
+
+    }
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         //界面设置

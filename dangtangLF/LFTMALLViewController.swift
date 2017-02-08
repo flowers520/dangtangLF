@@ -12,6 +12,7 @@ class LFTMALLViewController: UIViewController {
 
     var webView = UIWebView()
     var product: LFProduct?
+    var result: LFSearchResult?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -20,10 +21,15 @@ class LFTMALLViewController: UIViewController {
         //自动对页面进行缩放以适应屏幕
         webView.frame = CGRectMake(0, 0, SCREENW, SCREENH)
         webView.dataDetectorTypes = .All
-        let url = NSURL(string: product!.purchase_url!)
-        let request = NSURLRequest(URL: url!)
-        webView.loadRequest(request)
-        view.addSubview(webView)
+        if product == nil{
+            
+        }else{
+            let url = NSURL(string: product!.purchase_url!)
+            let request = NSURLRequest(URL: url!)
+            webView.loadRequest(request)
+            view.addSubview(webView)
+        }
+
     }
 
     private func setupNav(){

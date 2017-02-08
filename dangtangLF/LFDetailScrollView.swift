@@ -22,6 +22,12 @@ class LFDetailScrollView: UIScrollView {
         }
     }
 
+    var result: LFSearchResult?{
+        didSet{
+            topScrollView.result = result
+            bottomScrollView.result = result
+        }
+    }
     override init(frame: CGRect) {
         super.init(frame: frame)
         setupUI()

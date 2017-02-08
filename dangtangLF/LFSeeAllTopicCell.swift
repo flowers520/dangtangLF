@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import SnapKit
 
 class LFSeeAllTopicCell: UITableViewCell {
 
@@ -16,9 +17,9 @@ class LFSeeAllTopicCell: UITableViewCell {
     var subtitleLabel: UILabel!
     
     var longView: UIView!
-    var leftView: UIView!
-    var rightView: UIView!
-    var seeTopicImage: UIImageView!
+    var leftView = UIView()
+    var rightView = UIView()
+    var seeTopicLabel = UILabel()
     
     var collection: LFCollection?{
         didSet{
@@ -78,17 +79,34 @@ class LFSeeAllTopicCell: UITableViewCell {
         subtitleLabel.adjustsFontSizeToFitWidth = true
         addSubview(subtitleLabel)
         
-        longView = UIView(frame: CGRectMake(8,77,304,5))
+        longView = UIView(frame: CGRectMake(8,77,SCREENW-8-8,5))
         addSubview(longView)
         
-        leftView = UIView(frame: CGRectMake(30,2,109,1))
+        leftView.backgroundColor = UIColor.whiteColor()
         longView.addSubview(leftView)
+        leftView.snp_makeConstraints { (make) -> Void in
+            make.left.equalTo(longView).offset(20)
+            make.top.equalTo(longView).offset(2)
+            make.size.equalTo(CGSizeMake((SCREENW-61)/2, 1))
+        }
         
-        rightView = UIView(frame: CGRectMake(164,2,110,1))
+        rightView.backgroundColor = UIColor.whiteColor()
         longView.addSubview(rightView)
-        
-        seeTopicImage = UIImageView(frame: CGRectMake(149, 0, 5, 5))
-        longView.addSubview(seeTopicImage)
+        rightView.snp_makeConstraints { (make) -> Void in
+            make.right.equalTo(longView).offset(-20)
+            make.top.equalTo(longView).offset(2)
+            make.size.equalTo(CGSizeMake((SCREENW-59)/2, 1))
+        }
+        seeTopicLabel.backgroundColor = UIColor.clearColor()
+        seeTopicLabel.text = "o"
+        seeTopicLabel.textAlignment = .Center
+        seeTopicLabel.font = UIFont.systemFontOfSize(10)
+        seeTopicLabel.textColor = UIColor.whiteColor()
+        longView.addSubview(seeTopicLabel)
+        seeTopicLabel.snp_makeConstraints { (make) -> Void in
+            make.width.height.equalTo(6)
+            make.center.equalTo(longView)
+        }
     }
     
 }
