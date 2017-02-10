@@ -2,6 +2,7 @@
 // String 扩展
 
 import Foundation
+import UIKit
 
 public extension String {
     //判断手机号是否合法

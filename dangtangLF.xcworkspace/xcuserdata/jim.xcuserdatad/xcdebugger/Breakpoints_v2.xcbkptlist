@@ -9,22 +9,6 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "dangtangLF/LFSortTableView.swift"
-            timestampString = "508172022.098165"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "107"
-            endingLineNumber = "107"
-            landmarkName = "tableView(_:didSelectRowAtIndexPath:)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "dangtangLF/LFActionSheet.swift"
             timestampString = "508173469.288143"
             startingColumnNumber = "9223372036854775807"
@@ -57,13 +41,13 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "dangtangLF/LFProductDetailViewController.swift"
-            timestampString = "508247903.621316"
+            filePath = "dangtangLF/LFSearchRecordView.swift"
+            timestampString = "508394268.291687"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "105"
-            endingLineNumber = "105"
-            landmarkName = "toolBarDidClickedTMALLButton()"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
+            landmarkName = "hotWords(_:)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

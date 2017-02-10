@@ -1,10 +1,4 @@
-//
-//  LFCollection.swift
-//  dangtangLF
-//
-//  Created by jim on 17/1/17.
-//  Copyright © 2017年 jim. All rights reserved.
-//  顶部专题合集
+
 
 import UIKit
 

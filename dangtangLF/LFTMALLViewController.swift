@@ -1,10 +1,4 @@
-//
-//  LFTMALLViewController.swift
-//  dangtangLF
-//
-//  Created by jim on 17/2/2.
-//  Copyright © 2017年 jim. All rights reserved.
-//
+
 
 import UIKit
 

@@ -1,10 +1,4 @@
-//
-//  LFSortCell.swift
-//  dangtangLF
-//
-//  Created by jim on 17/1/31.
-//  Copyright © 2017年 jim. All rights reserved.
-//
+
 
 import UIKit
 
@@ -29,6 +23,8 @@ class LFSortCell: UITableViewCell {
         titleLabel.text = "Label"
         titleLabel.textColor = UIColor.whiteColor()
         addSubview(titleLabel)
+        
+        
     }
     
     required init?(coder aDecoder: NSCoder) {

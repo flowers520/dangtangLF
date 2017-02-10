@@ -1,10 +1,4 @@
-//
-//  LFSortTableView.swift
-//  dangtangLF
-//
-//  Created by jim on 17/1/31.
-//  Copyright © 2017年 jim. All rights reserved.
-//
+
 
 import UIKit
 import SnapKit
@@ -28,7 +22,9 @@ class LFSortTableView: UIView {
 
     weak var delegate: LFSortTableViewDelegate?
     
-
+    var cloureValue =  { (sortCell: String) -> Void in
+        
+    }
 
     
     let cells = ["默认排序","按热度排序","价格从低到高","价格从高到低"]
@@ -103,6 +99,9 @@ extension LFSortTableView: UITableViewDelegate,UITableViewDataSource{
 
         let sort = sorts[indexPath.row]
         delegate?.sortView(self, didSelectSortAtIndexPath: sort)
+        if delegate == nil{
+            cloureValue(sort)
+        }
         
         SVProgressHUD.showInfoWithStatus(sort)
         

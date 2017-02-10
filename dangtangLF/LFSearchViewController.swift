@@ -50,13 +50,24 @@ class LFSearchViewController: LFBaseViewController {
         navigationItem.titleView = searchBar
         searchBar.delegate = self
         searchBar.placeholder = "搜索商品，专题"
+        searchBar.becomeFirstResponder()
         //LFSearchrecord闭包
         searchRecordView.cloureBack = ({(hotWords: String) -> Void in
             self.searchBar.text = hotWords
             self.SearchKeywordResult()
             
         })
+        //sort
+        sortTableView.cloureValue = {(sortCell: String) -> Void in
+            /// 根据搜索条件进行搜索
+            let keyword = self.searchBar.text
+            LFNetworkTool.shareNetworkTool.loadSearchResult(keyword!, sort: sortCell) { [weak self] (results) -> Void in
+                self!.sortTableView.dismiss()
+                self!.results = results
+                self!.collectionView!.reloadData()
+            }
 
+        }
         navigationItem.leftBarButtonItem = UIBarButtonItem(customView: UIView())
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "取消", style: .Plain, target: self, action: Selector("navigationBackClick"))
 
@@ -73,7 +84,9 @@ class LFSearchViewController: LFBaseViewController {
         navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "icon_sort_21x21_"), style: .Plain, target: self, action: Selector("sortButtonClick"))
 
         LFNetworkTool.shareNetworkTool.loadSearchResult(searchBar.text!, sort: "") { [weak self] (results) -> () in
-            self?.results = results
+            //加入搜索历史
+            searchs.append(self!.searchBar.text!)
+            self!.results = results
             self!.collectionView!.reloadData()
         }
     }
@@ -96,23 +109,38 @@ class LFSearchViewController: LFBaseViewController {
 //        self.dismissViewControllerAnimated(true, completion: nil)
     }
     
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        searchBar.resignFirstResponder()
+        setupUI()
+    }
+    
 
 }
 
 extension LFSearchViewController: UISearchBarDelegate,UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,LFCollectionViewCellDelegate,LFSortTableViewDelegate{
     
-    
+    //UISearchBar 得到焦点并开始编辑
     func searchBarShouldEndEditing(searchBar: UISearchBar) -> Bool {
         //设置collectionView
         setupCollectionView()
         return true
     }
-    //搜索按钮点击(searchBarSearchButtonClicked)
+    //键盘中搜索按钮点击(searchBarSearchButtonClicked)
     func searchBarSearchButtonClicked(searchBar: UISearchBar) {
         searchBar.resignFirstResponder()
 
         //根据搜索添加进行搜索
         SearchKeywordResult()
+    }
+    //取消按钮点击
+    func searchBarCancelButtonClicked(searchBar: UISearchBar) {
+    }
+    
+    //UISearchBar 内容变化执行该方法
+    func searchBar(searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchBar.text == ""{
+            
+        }
     }
     
     //MARK: - UICollectionViewDataSource

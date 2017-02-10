@@ -1,10 +1,4 @@
-//
-//  LFProductDetailViewController.swift
-//  dangtangLF
-//
-//  Created by jim on 17/2/1.
-//  Copyright © 2017年 jim. All rights reserved.
-//
+
 
 import UIKit
 import SnapKit
@@ -65,7 +59,8 @@ class LFProductDetailViewController: LFBaseViewController{
         scrollView.delegate = self
         //scrollView传数据到当前行
         if product == nil{
-        scrollView.result = result}else{
+            scrollView.result = result
+        }else{
             scrollView.product = product
         }
         
